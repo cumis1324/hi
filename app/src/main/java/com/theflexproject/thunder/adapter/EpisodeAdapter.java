@@ -88,6 +88,9 @@ public class EpisodeAdapter extends RecyclerView.Adapter<EpisodeAdapter.EpisodeA
                 holder.runtime.setVisibility(View.VISIBLE);
                 holder.runtime.setText(result);
             }
+            if(episode.getPlayed()!=0){
+                holder.watched.setVisibility(View.VISIBLE);
+            }
 
                 holder.play.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -126,6 +129,7 @@ public class EpisodeAdapter extends RecyclerView.Adapter<EpisodeAdapter.EpisodeA
         TextView runtime;
         TextView overview;
         Button play;
+        TextView watched;
 
         public EpisodeAdapterHolder(@NonNull View itemView) {
             super(itemView);
@@ -140,7 +144,7 @@ public class EpisodeAdapter extends RecyclerView.Adapter<EpisodeAdapter.EpisodeA
             episodeNumber = itemView.findViewById(R.id.episodeNumberInItem);
             runtime = itemView.findViewById(R.id.RuntimeInItem);
             overview = itemView.findViewById(R.id.overviewDescInItem);
-
+            watched = itemView.findViewById(R.id.markWatchedEpisode);
             play = itemView.findViewById(R.id.playInEpisodeItem);
 
             blurBottom();
