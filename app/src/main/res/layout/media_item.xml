@@ -2,6 +2,7 @@
 
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/movieCard"
     android:layout_width="100dp"
     android:layout_height="wrap_content"
@@ -13,7 +14,45 @@
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
-
+        <TextView
+            android:id="@+id/markWatchedMedia"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/blue80"
+            android:text="Watched"
+            android:textColor="@color/white"
+            android:gravity="center"
+            android:textSize="11sp"
+            android:visibility="visible"
+            />
+        <RelativeLayout
+            android:id="@+id/starLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@+id/posterInMediaItem"
+            android:layout_alignEnd="@+id/posterInMediaItem"
+            android:layout_alignBottom="@id/posterInMediaItem"
+            android:background="@color/blue80"
+            >
+            <ImageView
+                android:id="@+id/starRate"
+                android:layout_width="wrap_content"
+                android:layout_height="15dp"
+                android:src="@drawable/star"
+                android:layout_marginBottom="2dp"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="9"
+                android:textColor="@color/white"
+                android:layout_alignStart="@+id/starRate"
+                android:layout_alignEnd="@+id/starRate"
+                android:gravity="center"
+                android:layout_centerInParent="true"
+                android:textSize="4sp"
+                tools:ignore="SmallSp" />
+        </RelativeLayout>
         <ImageView
             android:id="@+id/posterInMediaItem"
             android:layout_width="100dp"
@@ -38,7 +77,7 @@
             android:scrollHorizontally="true"
             android:text="TextView"
             android:textAlignment="center"
-            android:textColor="@color/white"
+            android:textColor="@color/black85"
             android:textSize="14sp"
             android:visibility="gone"/>
 
