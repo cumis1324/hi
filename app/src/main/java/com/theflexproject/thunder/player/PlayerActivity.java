@@ -52,6 +52,7 @@ public class PlayerActivity extends AppCompatActivity implements View.OnClickLis
     private boolean startAutoPlay;
     private int startItemIndex;
     private long startPosition;
+    private static final int REQUEST_CODE_PICTURE_IN_PICTURE = 1;
 
     private ImageButton buttonAspectRatio;
     int uiOptions;
@@ -71,7 +72,7 @@ public class PlayerActivity extends AppCompatActivity implements View.OnClickLis
 
         decorView.setSystemUiVisibility(uiOptions);
 
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
 
         dataSourceFactory = DemoUtil.getDataSourceFactory(/* context= */ this);
 
@@ -311,5 +312,5 @@ public class PlayerActivity extends AppCompatActivity implements View.OnClickLis
             }
         }
 
-}
+    }
 }

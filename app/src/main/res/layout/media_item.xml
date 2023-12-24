@@ -83,7 +83,7 @@
                 android:layout_height="25dp"
                 android:src="@drawable/star"
                 android:layout_marginBottom="2dp"
-                android:visibility="visible"
+                android:visibility="gone"
                 />
             <TextView
                 android:id="@+id/textStar"
@@ -97,7 +97,7 @@
                 android:layout_centerInParent="true"
                 android:textSize="6sp"
                 tools:ignore="SmallSp"
-                android:visibility="visible"/>
+                android:visibility="gone"/>
         </RelativeLayout>
     </RelativeLayout>
 
