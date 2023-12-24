@@ -145,10 +145,6 @@ public class MainActivity extends AppCompatActivity {
                             .add(R.id.container, nextFrag)
                             .addToBackStack(null)
                             .commit();
-                    Button add;
-                    add = findViewById(R.id.save);
-                    add.performClick();
-
                 }
             });
             //refresh index if set

@@ -14,46 +14,6 @@
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
-        <TextView
-            android:id="@+id/markWatchedMedia"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/blue80"
-            android:text="Watched"
-            android:textColor="@color/white"
-            android:gravity="center"
-            android:textSize="11sp"
-            android:visibility="gone"
-            />
-        <RelativeLayout
-            android:id="@+id/starLayout"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@id/posterInMediaItem"
-            android:layout_alignEnd="@id/posterInMediaItem"
-            >
-            <ImageView
-                android:id="@+id/starRate"
-                android:layout_width="wrap_content"
-                android:layout_height="15dp"
-                android:src="@drawable/star"
-                android:layout_marginBottom="2dp"
-                android:visibility="gone"
-                />
-            <TextView
-                android:id="@+id/textStar"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="9,8"
-                android:textColor="@color/exo_black_opacity_70"
-                android:layout_alignStart="@+id/starRate"
-                android:layout_alignEnd="@+id/starRate"
-                android:gravity="center"
-                android:layout_centerInParent="true"
-                android:textSize="4sp"
-                tools:ignore="SmallSp"
-                android:visibility="gone"/>
-        </RelativeLayout>
         <ImageView
             android:id="@+id/posterInMediaItem"
             android:layout_width="100dp"
@@ -94,6 +54,51 @@
             android:textAlignment="center"
             android:textColor="#cccccc"
             android:visibility="gone" />
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/layoutWatched"
+        android:layout_centerVertical="true"
+        >
+        <TextView
+            android:id="@+id/markWatchedMedia"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:background="@color/blue80"
+            android:text="Watched"
+            android:textColor="@color/white"
+            android:gravity="center"
+            android:textSize="11sp"
+            android:visibility="gone"
+            />
+        <RelativeLayout
+            android:id="@+id/starLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            >
+            <ImageView
+                android:id="@+id/starRate"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:src="@drawable/star"
+                android:layout_marginBottom="2dp"
+                android:visibility="visible"
+                />
+            <TextView
+                android:id="@+id/textStar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="9,8"
+                android:textColor="@color/exo_black_opacity_70"
+                android:layout_alignStart="@+id/starRate"
+                android:layout_alignEnd="@+id/starRate"
+                android:gravity="center"
+                android:layout_centerInParent="true"
+                android:textSize="6sp"
+                tools:ignore="SmallSp"
+                android:visibility="visible"/>
+        </RelativeLayout>
     </RelativeLayout>
 
 

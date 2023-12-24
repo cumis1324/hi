@@ -37,9 +37,9 @@ public class FileItemDialogAdapter extends RecyclerView.Adapter<FileItemDialogAd
     @Override
     public void onBindViewHolder(@NonNull FileItemDialogAdapterViewHolder holder , int position) {
         if (mediaList.get(position) instanceof Movie) {
-            if (((Movie)mediaList.get(position)).getUrlString() != null) {
-                holder.fileName.setText(((Movie)mediaList.get(position)).getFileName());
-            }
+           // if (((Movie)mediaList.get(position)).getUrlString() != null) {
+             //   holder.fileName.setText(((Movie)mediaList.get(position)).getFileName());
+            // }
             String qualityStr = MovieQualityExtractor.extractQualtiy(((Movie)mediaList.get(position)).getFileName());
             if(qualityStr!=null){
                 holder.quality.setVisibility(View.VISIBLE);

@@ -6,14 +6,14 @@ plugins {
 
 
 android {
-    compileSdk 33
+    compileSdk 34
 
     defaultConfig {
         applicationId "com.gelaskaca.nfgplus"
         minSdk 24
-        targetSdk 33
-        versionCode 20
-        versionName "Vimsati"
+        targetSdk 34
+        versionCode 22
+        versionName "Dwivimsati"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         javaCompileOptions {

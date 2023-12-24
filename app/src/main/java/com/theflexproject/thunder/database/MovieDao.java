@@ -19,6 +19,8 @@ public interface MovieDao {
 
     @Query("SELECT * FROM Movie WHERE id=:id and disabled=0")
     List<Movie> getAllById(int id);
+    @Query("SELECT * FROM Movie WHERE poster_path IS NOT NULL AND disabled = 0 AND (played = 0 AND genres IN (SELECT genres FROM Movie WHERE id=:id)) AND genres IS NOT NULL GROUP BY title ORDER BY popularity DESC")
+    List<Movie> getmorebyid(int id);
 
     @Query("SELECT * FROM Movie WHERE id=:id and disabled=0 ORDER BY size DESC limit 1 ")
     Movie byIdLargest(int id);

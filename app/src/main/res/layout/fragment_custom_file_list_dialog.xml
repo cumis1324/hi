@@ -9,12 +9,13 @@
 
     <eightbitlab.com.blurview.BlurView
         android:id="@+id/blurViewDialog"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:clipChildren="false"
+        android:layout_gravity="end"
         android:elevation="8dp">
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:background="@color/transparent">
@@ -22,7 +23,7 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/fileListInDialog"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:maxHeight="0dp"
             android:layout_height="wrap_content"
            android:layout_margin="8dp"

@@ -82,6 +82,7 @@ public class MovieDetailsFragment extends BaseFragment{
     RecyclerView moreRecomView;
     RecyclerView moreMovieView;
     List<Movie> moreMovies;
+    List<Movie> morebyId;
     List<Movie> moreRecom;
     MoreMoviesAdapterr.OnItemClickListener moreMoviesListener;
     BannerRecyclerAdapter.OnItemClickListener moreRecomListener;
@@ -134,6 +135,7 @@ public class MovieDetailsFragment extends BaseFragment{
     Movie largestFile;
     Movie selectedFile;
 
+
     //adview
     private static final String AD_UNIT_ID = "ca-app-pub-5906976337228746/4254282739";
     private AdView adView;
@@ -146,6 +148,7 @@ public class MovieDetailsFragment extends BaseFragment{
     private ImageButton saweria;
     private ImageButton paypal;
     private ImageButton dana;
+    private ImageButton spay;
     private boolean initialLayoutComplete = false;
 
 
@@ -202,6 +205,7 @@ public class MovieDetailsFragment extends BaseFragment{
         saweria = view.findViewById(R.id.downloadButton2);
         paypal = view.findViewById(R.id.changeSourceButton2);
         dana = view.findViewById(R.id.addToListButton2);
+        spay = view.findViewById(R.id.shareButton2);
         initWidgets(view);
         loadDetails();
 
@@ -482,6 +486,11 @@ public class MovieDetailsFragment extends BaseFragment{
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
+                morebyId = DatabaseClient
+                        .getInstance(mActivity)
+                        .getAppDatabase()
+                        .movieDao()
+                        .getmorebyid(movieId);
                 moreMovies = DatabaseClient
                         .getInstance(mActivity)
                         .getAppDatabase()
@@ -493,6 +502,7 @@ public class MovieDetailsFragment extends BaseFragment{
                         .movieDao()
                         .getrecomendation();
                 moreMovieList = new ArrayList<>();
+                moreMovieList.addAll(morebyId);
                 moreMovieList.addAll(moreMovies);
                 moreMovieList.addAll(moreRecom);
                 if(moreMovieList!=null && moreMovieList.size()>0) {
@@ -518,6 +528,7 @@ public class MovieDetailsFragment extends BaseFragment{
 
     private void setMyOnClickListeners(){
 
+        spay.setOnClickListener(v -> startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://sppay.shopee.co.id/qr/00ccc6eccf9a0f4cc900"))));
         dana.setOnClickListener(v -> startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://link.dana.id/qr/685glq8"))));
         saweria.setOnClickListener(v -> startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://saweria.co/nfgplus"))));
         paypal.setOnClickListener(v -> startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.paypal.com/paypalme/nfgplus?country.x=ID&locale.x=en_US"))));
@@ -647,8 +658,9 @@ public class MovieDetailsFragment extends BaseFragment{
                     @Override
                     public void sendInput(int selection) {
                         selectedFile = movieFileList.get(selection);
+                        String huntu = MovieQualityExtractor.extractQualtiy(selectedFile.getFileName());
                         System.out.println("selected file"+selectedFile.getFileName());
-                        Toast.makeText(mActivity , selectedFile.getFileName()+ " Selected" , Toast.LENGTH_LONG).show();
+                        Toast.makeText(mActivity , selectedFile.getTitle() + huntu + " Selected" , Toast.LENGTH_LONG).show();
 
                     }
                 };

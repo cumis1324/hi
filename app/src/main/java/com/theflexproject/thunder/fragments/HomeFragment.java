@@ -380,7 +380,6 @@ public class HomeFragment extends BaseFragment {
                     });
                 }
                 else {
-                    floatingActionButton.setVisibility(View.VISIBLE);
                     scanButton.performClick();
                 }
             }});

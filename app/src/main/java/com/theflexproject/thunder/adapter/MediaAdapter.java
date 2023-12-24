@@ -60,12 +60,13 @@ public class MediaAdapter extends RecyclerView.Adapter<MediaAdapter.MediaAdapter
                 holder.watched.setVisibility(View.VISIBLE);
             }
             if(movie.getVote_average()!=0){
-                double voteAvg = movie.getVote_average();
                 DecimalFormat decimalFormat = new DecimalFormat("0.0");
-                String roundedVoteAverage = decimalFormat.format(voteAvg);
-                holder.star.setVisibility(View.VISIBLE);
-                holder.textStar.setVisibility(View.VISIBLE);
+                String roundedVoteAverage = decimalFormat.format(movie.getVote_average());
                 holder.textStar.setText(roundedVoteAverage);
+            }
+            if (movie.getVote_average()==0){
+                holder.star.setVisibility(View.GONE);
+                holder.textStar.setVisibility(View.GONE);
             }
             if(movie.getPoster_path()!=null){
                 Glide.with(context)

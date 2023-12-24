@@ -84,6 +84,9 @@ public class MoreMoviesAdapterr extends RecyclerView.Adapter<MoreMoviesAdapterr.
                 if (movie.getOverview() != null){
                 holder.overview.setText(movie.getOverview());
                 }
+                if(movie.getPlayed()!=0){
+                    holder.watched.setVisibility(View.VISIBLE);
+                }
             }
 
 
@@ -109,6 +112,7 @@ public class MoreMoviesAdapterr extends RecyclerView.Adapter<MoreMoviesAdapterr.
         ImageView moreLogo;
         TextView moreName;
         TextView overview;
+        TextView watched;
 
 
         public MoreMoviesAdapterrHolder(@NonNull View itemView) {
@@ -118,6 +122,7 @@ public class MoreMoviesAdapterr extends RecyclerView.Adapter<MoreMoviesAdapterr.
             moreLogo = itemView.findViewById(R.id.movieLogomore);
             moreName = itemView.findViewById(R.id.moreMoviesname);
             overview = itemView.findViewById(R.id.moreoverview);
+            watched = itemView.findViewById(R.id.markWatchedEpisode2);
 
 
             itemView.setOnClickListener(this);
