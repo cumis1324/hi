@@ -95,7 +95,7 @@ public class MoreMoviesAdapterr extends RecyclerView.Adapter<MoreMoviesAdapterr.
     @Override
     public int getItemCount() {
         // Set your desired limit (e.g., 5)
-        int limit = 15;
+        int limit = 30;
 
         // Return the minimum between the size of moreList and the limit
         return Math.min(moreList.size(), limit);
