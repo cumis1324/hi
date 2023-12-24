@@ -1,6 +1,7 @@
 
 package com.theflexproject.thunder.adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -25,6 +26,7 @@ import com.theflexproject.thunder.model.MyMedia;
 import com.theflexproject.thunder.model.TVShowInfo.TVShow;
 import com.theflexproject.thunder.model.TVShowInfo.TVShowSeasonDetails;
 
+import java.text.DecimalFormat;
 import java.util.List;
 
 public class MediaAdapter extends RecyclerView.Adapter<MediaAdapter.MediaAdapterHolder> {
@@ -54,7 +56,17 @@ public class MediaAdapter extends RecyclerView.Adapter<MediaAdapter.MediaAdapter
            // if(movie.getTitle()==null){
             //    holder.name.setText(movie.getFileName());
             //} else holder.name.setText(movie.getTitle());
-
+            if(movie.getPlayed()!=0){
+                holder.watched.setVisibility(View.VISIBLE);
+            }
+            if(movie.getVote_average()!=0){
+                double voteAvg = movie.getVote_average();
+                DecimalFormat decimalFormat = new DecimalFormat("0.0");
+                String roundedVoteAverage = decimalFormat.format(voteAvg);
+                holder.star.setVisibility(View.VISIBLE);
+                holder.textStar.setVisibility(View.VISIBLE);
+                holder.textStar.setText(roundedVoteAverage);
+            }
             if(movie.getPoster_path()!=null){
                 Glide.with(context)
                         .load(Constants.TMDB_IMAGE_BASE_URL+movie.getPoster_path())
@@ -62,16 +74,6 @@ public class MediaAdapter extends RecyclerView.Adapter<MediaAdapter.MediaAdapter
                         .apply(RequestOptions.bitmapTransform(new RoundedCorners(14)))
                         .into(holder.poster);
             }
-
-            //String year = movie.getRelease_date();
-            //if(year!=null&&year.length()>4) {
-              //  holder.movieYear.setVisibility(View.VISIBLE);
-               // holder.movieYear.setText(year.substring(0,year.indexOf('-')));
-            //}else {
-              //  holder.movieYear.setVisibility(View.VISIBLE);
-              //  holder.movieYear.setText(year);
-           // }
-
         }
         
         
@@ -91,7 +93,7 @@ public class MediaAdapter extends RecyclerView.Adapter<MediaAdapter.MediaAdapter
         if(mediaList.get(position) instanceof TVShowSeasonDetails){
             TVShowSeasonDetails tvShowSeason = ((TVShowSeasonDetails)mediaList.get(position));
             if(tvShowSeason.getName()!=null){
-                //holder.name.setText(tvShowSeason.getName());
+                holder.name.setText(tvShowSeason.getName());
                 String poster_path = tvShowSeason.getPoster_path();
                 if(poster_path!=null){
                     Glide.with(context)
@@ -123,12 +125,18 @@ public class MediaAdapter extends RecyclerView.Adapter<MediaAdapter.MediaAdapter
         TextView name;
         ImageView poster;
         TextView movieYear;
+        ImageView star;
+        TextView textStar;
+        TextView watched;
 
         public MediaAdapterHolder(@NonNull View itemView) {
             super(itemView);
             name = itemView.findViewById(R.id.nameInMediaItem);
             poster= itemView.findViewById(R.id.posterInMediaItem);
             movieYear = itemView.findViewById(R.id.yearInMediaItem);
+            star = itemView.findViewById(R.id.starRate);
+            textStar = itemView.findViewById(R.id.textStar);
+            watched = itemView.findViewById(R.id.markWatchedMedia);
 
             itemView.setOnClickListener(this);
         }

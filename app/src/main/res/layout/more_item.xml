@@ -26,6 +26,8 @@
                 android:layout_centerVertical="true"
                 android:scaleType="centerCrop"
                 app:srcCompat="@color/black85" />
+
+
             <ImageView
                 android:id="@+id/movieLogomore"
                 android:layout_width="133dp"
@@ -52,8 +54,6 @@
                 android:paddingVertical="5dp"
                 android:paddingHorizontal="10dp">
 
-
-
                 <TextView
                     android:id="@+id/moreMoviesname"
                     android:layout_width="match_parent"
@@ -64,6 +64,7 @@
                     android:textAlignment="viewStart"
                     android:textColor="@color/white"
                     android:textSize="14sp" />
+
 
                 <TextView
                     android:id="@+id/moreoverview"
