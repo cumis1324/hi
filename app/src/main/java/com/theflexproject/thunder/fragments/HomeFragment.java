@@ -29,6 +29,7 @@ import androidx.work.WorkManager;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.theflexproject.thunder.R;
+import com.theflexproject.thunder.RefreshJobService;
 import com.theflexproject.thunder.adapter.BannerRecyclerAdapter;
 import com.theflexproject.thunder.adapter.DrakorBannerAdapter;
 import com.theflexproject.thunder.adapter.IndexAdapter;
@@ -168,7 +169,6 @@ public class HomeFragment extends BaseFragment {
             public void onRefresh() {
                 // Your refresh logic here
                 refreshData();
-                startRefreshWorker();
 
             }
         });
@@ -356,6 +356,8 @@ public class HomeFragment extends BaseFragment {
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
+                Intent workIntent = new Intent(getContext(), RefreshJobService.class);
+                RefreshJobService.enqueueWork(getContext(), workIntent);
                 trending = DatabaseClient
                         .getInstance(mActivity)
                         .getAppDatabase()

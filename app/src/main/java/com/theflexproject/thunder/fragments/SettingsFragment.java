@@ -262,7 +262,7 @@ public class SettingsFragment extends BaseFragment {
 
     private void setStatesOfToggleSwitches() {
         SharedPreferences sharedPreferences = mActivity.getSharedPreferences("Settings", Context.MODE_PRIVATE);
-        boolean savedREF = sharedPreferences.getBoolean("REFRESH_SETTING", false);
+        boolean savedREF = sharedPreferences.getBoolean("REFRESH_SETTING", true);
         String s = "Refresh at : "+ sharedPreferences.getInt("REFRESH_TIME",0)+":00";
 
         mActivity.runOnUiThread(new Runnable() {

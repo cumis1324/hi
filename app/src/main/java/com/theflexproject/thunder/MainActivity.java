@@ -136,7 +136,6 @@ public class MainActivity extends AppCompatActivity {
             AppDatabase db = Room.databaseBuilder(getApplicationContext() ,
                             AppDatabase.class , "MyToDos")
                     .build();
-
             scanButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
