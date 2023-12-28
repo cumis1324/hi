@@ -1,11 +1,14 @@
 package com.theflexproject.thunder.player;
 
+import android.app.PictureInPictureParams;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.util.Rational;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ImageButton;
@@ -31,6 +34,8 @@ import com.google.android.exoplayer2.ui.StyledPlayerView;
 import com.google.android.exoplayer2.upstream.DataSource;
 import com.google.android.exoplayer2.util.EventLogger;
 import com.theflexproject.thunder.R;
+
+import java.util.Objects;
 
 public class PlayerActivity extends AppCompatActivity implements View.OnClickListener, StyledPlayerView.ControllerVisibilityListener {
 
@@ -81,11 +86,17 @@ public class PlayerActivity extends AppCompatActivity implements View.OnClickLis
         playerView = findViewById(R.id.player_view);
         playerView.setControllerVisibilityListener(this);
         playerView.requestFocus();
+        Rational aspectRatio = new Rational(playerView.getWidth(), playerView.getHeight());
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            PictureInPictureParams params = new PictureInPictureParams.Builder()
+                    .setAspectRatio(aspectRatio)
+                    .build();
+        }
 
         if (savedInstanceState != null) {
             trackSelectionParameters =
                     TrackSelectionParameters.fromBundle(
-                            savedInstanceState.getBundle(KEY_TRACK_SELECTION_PARAMETERS));
+                            Objects.requireNonNull(savedInstanceState.getBundle(KEY_TRACK_SELECTION_PARAMETERS)));
             startAutoPlay = savedInstanceState.getBoolean(KEY_AUTO_PLAY);
             startItemIndex = savedInstanceState.getInt(KEY_ITEM_INDEX);
             startPosition = savedInstanceState.getLong(KEY_POSITION);
@@ -116,6 +127,30 @@ public class PlayerActivity extends AppCompatActivity implements View.OnClickLis
             }
         }
     }
+    @Override
+    protected void onUserLeaveHint() {
+        super.onUserLeaveHint();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            enterPictureInPictureMode(new PictureInPictureParams.Builder().build());
+        }
+    }
+
+    @Override
+    public void onPictureInPictureModeChanged(boolean isInPictureInPictureMode, Configuration newConfig) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            super.onPictureInPictureModeChanged(isInPictureInPictureMode, newConfig);
+        }
+        if (isInPictureInPictureMode) {
+            // Hide unnecessary UI elements for Picture-in-Picture mode
+            // Example: controlView.setVisibility(View.GONE);
+
+        } else {
+            // Restore UI elements when exiting Picture-in-Picture mode
+            // Example: controlView.setVisibility(View.VISIBLE);
+            showControls();
+        }
+    }
+
 
     @Override
     public void onResume() {

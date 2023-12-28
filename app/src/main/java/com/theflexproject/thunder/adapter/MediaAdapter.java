@@ -56,11 +56,11 @@ public class MediaAdapter extends RecyclerView.Adapter<MediaAdapter.MediaAdapter
            // if(movie.getTitle()==null){
             //    holder.name.setText(movie.getFileName());
             //} else holder.name.setText(movie.getTitle());
-            if(movie.getPlayed()!=0){
-                holder.watched.setVisibility(View.VISIBLE);
-            }
+            //if(movie.getPlayed()!=0){
+               // holder.watched.setVisibility(View.VISIBLE);
+            //}
             if(movie.getVote_average()!=0){
-                holder.star.setVisibility(View.VISIBLE);
+                // holder.star.setVisibility(View.VISIBLE);
                 holder.textStar.setVisibility(View.VISIBLE);
                 DecimalFormat decimalFormat = new DecimalFormat("0.0");
                 String roundedVoteAverage = decimalFormat.format(movie.getVote_average());
@@ -87,12 +87,20 @@ public class MediaAdapter extends RecyclerView.Adapter<MediaAdapter.MediaAdapter
                         .apply(RequestOptions.bitmapTransform(new RoundedCorners(14)))
                         .into(holder.poster);
             }
+            if(tvShow.getVote_average()!=0){
+                // holder.star.setVisibility(View.VISIBLE);
+                holder.textStar.setVisibility(View.VISIBLE);
+                DecimalFormat decimalFormat = new DecimalFormat("0.0");
+                String roundedVoteAverage = decimalFormat.format(tvShow.getVote_average());
+                holder.textStar.setText(roundedVoteAverage);
+            }
         }
         
         
         if(mediaList.get(position) instanceof TVShowSeasonDetails){
             TVShowSeasonDetails tvShowSeason = ((TVShowSeasonDetails)mediaList.get(position));
             if(tvShowSeason.getName()!=null){
+                holder.name.setVisibility(View.VISIBLE);
                 holder.name.setText(tvShowSeason.getName());
                 String poster_path = tvShowSeason.getPoster_path();
                 if(poster_path!=null){

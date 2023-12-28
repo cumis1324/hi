@@ -74,14 +74,16 @@
             />
         <RelativeLayout
             android:id="@+id/starLayout"
-            android:layout_width="wrap_content"
+            android:layout_width="25dp"
             android:layout_height="wrap_content"
+            android:background="@drawable/rounden"
+            android:visibility="visible"
             >
             <ImageView
                 android:id="@+id/starRate"
-                android:layout_width="25dp"
-                android:layout_height="25dp"
-                android:src="@drawable/star"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:src="@drawable/rounden"
                 android:layout_marginBottom="2dp"
                 android:visibility="gone"
                 />
@@ -91,13 +93,11 @@
                 android:layout_height="wrap_content"
                 android:text="9,8"
                 android:textColor="@color/exo_black_opacity_70"
-                android:layout_alignStart="@+id/starRate"
-                android:layout_alignEnd="@+id/starRate"
                 android:gravity="center"
                 android:layout_centerInParent="true"
-                android:textSize="6sp"
+                android:textSize="11sp"
                 tools:ignore="SmallSp"
-                android:visibility="gone"/>
+                android:visibility="invisible"/>
         </RelativeLayout>
     </RelativeLayout>
 
