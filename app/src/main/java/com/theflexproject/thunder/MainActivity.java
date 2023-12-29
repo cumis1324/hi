@@ -54,6 +54,7 @@ import com.theflexproject.thunder.database.AppDatabase;
 import com.theflexproject.thunder.database.DatabaseClient;
 import com.theflexproject.thunder.fragments.AddNewIndexFragment;
 import com.theflexproject.thunder.fragments.HomeFragment;
+import com.theflexproject.thunder.fragments.HomeNewFragment;
 import com.theflexproject.thunder.fragments.LibraryFragment;
 import com.theflexproject.thunder.fragments.MovieDetailsFragment;
 import com.theflexproject.thunder.fragments.SearchFragment;
@@ -80,7 +81,7 @@ import eightbitlab.com.blurview.RenderScriptBlur;
 public class MainActivity extends AppCompatActivity {
 
     BottomNavigationView bottomNavigationView;
-    HomeFragment homeFragment = new HomeFragment();
+    HomeNewFragment homeFragment = new HomeNewFragment();
     MovieDetailsFragment movieDetailsFragment = new MovieDetailsFragment();
     SearchFragment searchFragment = new SearchFragment();
     LibraryFragment libraryFragment = new LibraryFragment();

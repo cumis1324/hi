@@ -8,17 +8,6 @@
     android:orientation="vertical"
     tools:context="com.theflexproject.thunder.fragments.HomeFragment">
 
-
-    <TextView
-        android:id="@+id/hometitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="40dp"
-        android:fontFamily="@font/jost_medium"
-        android:text="Home"
-        android:textColor="@color/white"
-        android:textSize="25sp" />
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/swipeRefreshLayout"
         android:layout_width="match_parent"
@@ -35,8 +24,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
-
-
             <TextView
                 android:id="@+id/recentlyAdded"
                 android:layout_width="wrap_content"
@@ -174,66 +161,6 @@
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/filmIndoRecycler"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="14dp"
-                android:scrollbars="horizontal" />
-            <TextView
-                android:id="@+id/drakor"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/jost_medium"
-                android:layout_marginTop="10dp"
-                android:paddingStart="20dp"
-                android:text="Korean Drama"
-                android:visibility="gone"
-                android:textColor="@color/white"
-                android:textSize="16sp" />
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/drakorRecycler"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:scrollbars="horizontal"
-                android:layout_marginTop="14dp"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                tools:listitem="@layout/movie_item_banner" />
-            <TextView
-                android:id="@+id/newSeason"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:fontFamily="@font/jost_medium"
-                android:paddingStart="20dp"
-                android:text="New Episodes"
-                android:visibility="gone"
-                android:textColor="@color/white"
-                android:textSize="16sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/recyclertoprated" />
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/newSeasonRecycler"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="14dp"
-                android:scrollbars="horizontal" />
-
-            <TextView
-                android:id="@+id/topRatedTVShows"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/jost_medium"
-                android:layout_marginTop="10dp"
-                android:paddingStart="20dp"
-                android:text="Top Rated Shows"
-                android:visibility="gone"
-                android:textColor="@color/white"
-                android:textSize="16sp" />
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/topRatedTVShowsRecycler"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="14dp"

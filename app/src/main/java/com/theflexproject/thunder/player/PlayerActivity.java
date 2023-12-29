@@ -134,7 +134,6 @@ public class PlayerActivity extends AppCompatActivity implements View.OnClickLis
             enterPictureInPictureMode(new PictureInPictureParams.Builder().build());
         }
     }
-
     @Override
     public void onPictureInPictureModeChanged(boolean isInPictureInPictureMode, Configuration newConfig) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -187,9 +186,11 @@ public class PlayerActivity extends AppCompatActivity implements View.OnClickLis
     }
 
     @Override
-    public void onDestroy() {
-        super.onDestroy();
-
+    public void onBackPressed() {
+        super.onBackPressed();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            enterPictureInPictureMode(new PictureInPictureParams.Builder().build());
+        }
     }
 
 

@@ -157,10 +157,10 @@ public class HomeFragment extends BaseFragment {
         loadRecentlyAddedMovies();
         loadRecentlyReleasedMovies();
         loadTopRatedMovies();
-        loadNewSeason();
+
         loadLastPlayedMovies();
         loadWatchlist();
-        loadDrakor();
+
         loadFilmIndo();
         setOnClickListner();
 
@@ -260,9 +260,9 @@ public class HomeFragment extends BaseFragment {
         loadTopRatedMovies();
         loadLastPlayedMovies();
         loadWatchlist();
-        loadNewSeason();
+
         loadTrending();
-        loadDrakor();
+
         loadFilmIndo();
 
         swipeRefreshLayout.setRefreshing(false);
@@ -644,20 +644,5 @@ public class HomeFragment extends BaseFragment {
         };
     }
 
-    private void startRefreshWorker() {
-        // Create a Constraints object to ensure that the worker only runs when the network is available.
-        Constraints constraints = new Constraints.Builder()
-                .setRequiredNetworkType(NetworkType.CONNECTED)
-                .build();
-
-        // Create a OneTimeWorkRequest for RefreshWorker with the specified constraints.
-        OneTimeWorkRequest refreshWorkRequest =
-                new OneTimeWorkRequest.Builder(RefreshWorker.class)
-                        .setConstraints(constraints)
-                        .build();
-
-        // Enqueue the work request with WorkManager.
-        WorkManager.getInstance().enqueue(refreshWorkRequest);
-    }
 
 }
