@@ -114,6 +114,10 @@
             android:text="Season 11"
             android:textColor="@color/white"
             android:visibility="gone"
+            android:shadowColor="@color/black"
+            android:shadowDx="1"
+            android:shadowDy="1"
+            android:shadowRadius="1"
             />
     </RelativeLayout>
 
