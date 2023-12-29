@@ -27,78 +27,38 @@ import com.theflexproject.thunder.model.Movie;
 import com.theflexproject.thunder.model.MyMedia;
 import com.theflexproject.thunder.model.TVShowInfo.TVShow;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import io.reactivex.internal.operators.completable.CompletableMergeDelayErrorArray;
+
 public class SeriesFragment extends BaseFragment{
-    BannerRecyclerAdapter recentlyAddedRecyclerAdapter;
-    MediaAdapter recentlyReleasedRecyclerViewAdapter;
-    BannerRecyclerAdapter topRatedMoviesRecyclerViewAdapter;
-    MediaAdapter trendingMoviesRecyclerAdapter;
-    MediaAdapter lastPlayedMoviesRecyclerViewAdapter;
-    MediaAdapter watchlistRecyclerViewAdapter;
 
-    MediaAdapter topRatedShowsRecyclerAdapter;
-    MediaAdapter newSeasonRecyclerAdapter;
-
-
-
-    TextView recentlyAddedRecyclerViewTitle;
-    RecyclerView recentlyAddedRecyclerView;
-
-    TextView recentlyReleasedRecyclerViewTitle;
-    RecyclerView recentlyReleasedRecyclerView;
-
-    TextView topRatedMoviesRecyclerViewTitle;
-    TextView trendingTitle;
-    TextView filmIndoTitle;
-    RecyclerView filmIndoView;
-    MediaAdapter filmIndoAdapter;
-    MediaAdapter.OnItemClickListener filmIndoListener;
     TextView drakorTitle;
     RecyclerView drakorView;
     DrakorBannerAdapter drakorAdapter;
     DrakorBannerAdapter.OnItemClickListener drakorListener;
-    RecyclerView topRatedMoviesRecyclerView;
-    RecyclerView trendingRecyclerView;
+    TextView trendingTitle;
+    RecyclerView trendingView;
+    DrakorBannerAdapter trendingAdapter;
+    DrakorBannerAdapter.OnItemClickListener trendingListener;
+    List<TVShow> seriesTrending;
 
-    TextView lastPlayedMoviesRecyclerViewTitle;
-    RecyclerView lastPlayedMoviesRecyclerView;
-
-    TextView watchlistRecyclerViewTitle;
-    RecyclerView watchlistRecyclerView;
-
-    TextView topRatedShowsRecyclerViewTitle;
-    RecyclerView topRatedShowsRecyclerView;
 
     TextView newSeasonRecyclerViewTitle;
     RecyclerView newSeasonRecyclerView;
-
-    List<Movie> recentlyAddedMovies;
-    List<Movie> recentlyReleasedMovies;
-    List<Movie> topRatedMovies;
-    List<Movie> trending;
-    List<Movie> lastPlayedList;
-    List<Movie> fav;
-    List<Movie> played;
-    List<Movie> ogMovies;
-    List<Movie> topOld;
-    List<Movie> filmIndo;
-    List<TVShow> drakor;
-    List<MyMedia> ogtop;
-    List<MyMedia> someRecom;
-    List<TVShow> newSeason;
-    List<TVShow> topRatedShows;
-
-    BannerRecyclerAdapter.OnItemClickListener recentlyAddedListener;
-    MediaAdapter.OnItemClickListener recentlyReleasedListener;
-    BannerRecyclerAdapter.OnItemClickListener topRatedMoviesListener;
-    MediaAdapter.OnItemClickListener trendingListener;
-    MediaAdapter.OnItemClickListener lastPlayedListener;
-    MediaAdapter.OnItemClickListener watchlistListener;
+    MediaAdapter newSeasonRecyclerAdapter;
     MediaAdapter.OnItemClickListener topRatedShowsListener;
     MediaAdapter.OnItemClickListener newSeasonListener;
-    FrameLayout floatingActionButton;
-    Button scanButton;
+    TextView recommendedText;
+    RecyclerView recommendedView;
+    MediaAdapter recommendedAdapter;
+    MediaAdapter.OnItemClickListener recommendedListener;
+    List<TVShow> drakor;
+    List<TVShow> newSeason;
+    List<TVShow> topRatedShows;
+    List<TVShow> recommendSeries;
+    List<MyMedia> recommended;
 
 
 
@@ -121,7 +81,11 @@ public class SeriesFragment extends BaseFragment{
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         swipeRefreshLayout = view.findViewById(R.id.swipeRefreshLayout2);
+
+        loadTrendingSeries();
+        loadDrakor();
         loadNewSeason();
+        loadTopRatedShows();
         setOnClickListner();
 
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -138,14 +102,46 @@ public class SeriesFragment extends BaseFragment{
         // For example, you can re-fetch the data or perform any necessary updates
         // Once the refresh is complete, call setRefreshing(false) on the SwipeRefreshLayout
         // to indicate that the refresh has finished.
-        loadNewSeason();
 
+        loadTrendingSeries();
+        loadTopRatedShows();
+        loadNewSeason();
         loadDrakor();
 
 
         swipeRefreshLayout.setRefreshing(false);
 
     }
+
+    private void  loadTrendingSeries() {
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                seriesTrending = DatabaseClient
+                        .getInstance(mActivity)
+                        .getAppDatabase()
+                        .tvShowDao()
+                        .getTrending();
+                if(seriesTrending!=null && seriesTrending.size()>0){
+                    mActivity.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            trendingTitle = mActivity.findViewById(R.id.trendingSeries);
+                            trendingTitle.setVisibility(View.VISIBLE);
+                            trendingView = mActivity.findViewById(R.id.trendingSeriesRecycler);
+                            trendingView.setLayoutManager(new ScaleCenterItemLayoutManager(getContext() , RecyclerView.HORIZONTAL , false));
+                            trendingView.setHasFixedSize(true);
+                            trendingAdapter = new DrakorBannerAdapter(getContext(), seriesTrending , trendingListener);
+                            trendingView.setAdapter(trendingAdapter);
+                        }
+                    });
+                }
+
+            }});
+        thread.start();
+
+    }
+
 
     private void loadDrakor()  {
         Thread thread = new Thread(new Runnable() {
@@ -203,8 +199,52 @@ public class SeriesFragment extends BaseFragment{
             }});
         thread.start();
     }
-    private void setOnClickListner() {
+    private void loadTopRatedShows(){
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                topRatedShows = DatabaseClient
+                        .getInstance(mActivity)
+                        .getAppDatabase()
+                        .tvShowDao()
+                        .getTopRated();
+                recommendSeries = DatabaseClient
+                        .getInstance(mActivity)
+                        .getAppDatabase()
+                        .tvShowDao()
+                        .getrecomendation();
+                recommended = new ArrayList<>();
+                recommended.addAll(recommendSeries);
+                recommended.addAll(topRatedShows);
+                if(recommended!=null && recommended.size()>0){
+                    mActivity.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            ScaleCenterItemLayoutManager linearLayoutManager3 = new ScaleCenterItemLayoutManager(getContext() , LinearLayoutManager.HORIZONTAL , false);
+                            recommendedText = mActivity.findViewById(R.id.topRatedTVShows);
+                            recommendedText.setVisibility(View.VISIBLE);
+                            recommendedView = mActivity.findViewById(R.id.topRatedTVShowsRecycler);
+                            recommendedView.setLayoutManager(linearLayoutManager3);
+                            recommendedView.setHasFixedSize(true);
+                            recommendedAdapter = new MediaAdapter(getContext() , (List<MyMedia>)(List<?>) recommended , recommendedListener);
+                            recommendedView.setAdapter(recommendedAdapter);
+                        }
+                    });
+                }
+            }});
+        thread.start();
+    }
 
+    private void setOnClickListner() {
+        trendingListener = new DrakorBannerAdapter.OnItemClickListener() {
+            @Override
+            public void onClick(View view, int position) {
+                TvShowDetailsFragment tvShowDetailsFragment = new TvShowDetailsFragment(seriesTrending.get(position).getId());
+                mActivity.getSupportFragmentManager().beginTransaction()
+                        .setCustomAnimations(R.anim.fade_in,R.anim.fade_out,R.anim.fade_in,R.anim.fade_out)
+                        .add(R.id.container,tvShowDetailsFragment).addToBackStack(null).commit();
+            }
+        };
         drakorListener = new DrakorBannerAdapter.OnItemClickListener() {
             @Override
             public void onClick(View view, int position) {
@@ -225,10 +265,11 @@ public class SeriesFragment extends BaseFragment{
                         .add(R.id.container,tvShowDetailsFragment).addToBackStack(null).commit();
             }
         };
-        topRatedShowsListener = new MediaAdapter.OnItemClickListener() {
+        recommendedListener = new MediaAdapter.OnItemClickListener() {
             @Override
             public void onClick(View view, int position) {
-                TvShowDetailsFragment tvShowDetailsFragment = new TvShowDetailsFragment(topRatedShows.get(position).getId());
+                TVShow recomId = ((TVShow) recommended.get(position));
+                TvShowDetailsFragment tvShowDetailsFragment = new TvShowDetailsFragment(recomId.getId());
                 mActivity.getSupportFragmentManager().beginTransaction()
                         .setCustomAnimations(R.anim.fade_in,R.anim.fade_out)
                         .add(R.id.container,tvShowDetailsFragment).addToBackStack(null).commit();

@@ -5,6 +5,7 @@ import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
 
+import com.theflexproject.thunder.model.Movie;
 import com.theflexproject.thunder.model.TVShowInfo.TVShow;
 
 import java.util.List;
@@ -26,13 +27,18 @@ public interface TVShowDao {
     @Query("SELECT * FROM TVShow WHERE name LIKE :name")
     TVShow getByShowName(String name);
 
-    @Query("SELECT * FROM TVShow order by last_air_date desc limit 10")
+    @Query("SELECT * FROM TVShow order by last_air_date desc")
     List<TVShow> getNewShows();
     @Query("SELECT * FROM TVShow WHERE backdrop_path IS NOT NULL AND original_language = 'ko' GROUP BY name ORDER BY last_air_date DESC")
     List<TVShow> getDrakor();
 
-    @Query("SELECT * FROM TVShow order by vote_average desc limit 10")
+    @Query("SELECT * FROM TVShow WHERE original_language != 'ko' order by vote_average desc")
     List<TVShow> getTopRated();
+    @Query("SELECT * FROM TVShow WHERE poster_path IS NOT NULL AND last_air_date>= '2023-01-01' GROUP BY name ORDER BY (popularity + last_air_date) DESC LIMIT 10")
+    List<TVShow> getTrending();
+    @Query("SELECT * FROM TVShow WHERE poster_path IS NOT NULL AND ( genres IN (SELECT genres FROM TVShow WHERE vote_count > 5000 AND original_language != 'ko')) AND genres IS NOT NULL GROUP BY name ORDER BY vote_count DESC")
+    List<TVShow> getrecomendation();
+
 
     @Query("Delete FROM TVShow WHERE id = :show_id")
     void deleteById(int show_id);
