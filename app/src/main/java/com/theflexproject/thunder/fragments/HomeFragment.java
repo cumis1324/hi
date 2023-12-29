@@ -289,6 +289,7 @@ public class HomeFragment extends BaseFragment {
                             recentlyAddedRecyclerView.setHasFixedSize(true);
                             recentlyAddedRecyclerAdapter = new BannerRecyclerAdapter(getContext(), recentlyAddedMovies , recentlyAddedListener);
                             recentlyAddedRecyclerView.setAdapter(recentlyAddedRecyclerAdapter);
+                            recentlyAddedRecyclerView.setNestedScrollingEnabled(false);
                         }
                     });
                 }
@@ -318,6 +319,7 @@ public class HomeFragment extends BaseFragment {
                             recentlyReleasedRecyclerView.setHasFixedSize(true);
                             recentlyReleasedRecyclerViewAdapter = new MediaAdapter(getContext(),(List<MyMedia>)(List<?>) recentlyReleasedMovies, recentlyReleasedListener);
                             recentlyReleasedRecyclerView.setAdapter(recentlyReleasedRecyclerViewAdapter);
+                            recentlyReleasedRecyclerView.setNestedScrollingEnabled(false);
                         }
                     });
 
@@ -346,6 +348,7 @@ public class HomeFragment extends BaseFragment {
                             topRatedMoviesRecyclerView.setHasFixedSize(true);
                             topRatedMoviesRecyclerViewAdapter = new BannerRecyclerAdapter(getContext(), topRatedMovies , topRatedMoviesListener);
                             topRatedMoviesRecyclerView.setAdapter(topRatedMoviesRecyclerViewAdapter);
+                            topRatedMoviesRecyclerView.setNestedScrollingEnabled(false);
                         }
                     });
                 }
@@ -376,6 +379,7 @@ public class HomeFragment extends BaseFragment {
                             trendingRecyclerView.setHasFixedSize(true);
                             trendingMoviesRecyclerAdapter = new MediaAdapter(getContext() ,(List<MyMedia>)(List<?>) trending , trendingListener);
                             trendingRecyclerView.setAdapter(trendingMoviesRecyclerAdapter);
+                            trendingRecyclerView.setNestedScrollingEnabled(false);
                         }
                     });
                 }
@@ -424,6 +428,7 @@ public class HomeFragment extends BaseFragment {
                             lastPlayedMoviesRecyclerView.setHasFixedSize(true);
                             lastPlayedMoviesRecyclerViewAdapter = new MediaAdapter(getContext() ,(List<MyMedia>)(List<?>) someRecom , lastPlayedListener);
                             lastPlayedMoviesRecyclerView.setAdapter(lastPlayedMoviesRecyclerViewAdapter);
+                            lastPlayedMoviesRecyclerView.setNestedScrollingEnabled(false);
                         }
                     });
 
@@ -452,6 +457,7 @@ public class HomeFragment extends BaseFragment {
                             filmIndoView.setHasFixedSize(true);
                             filmIndoAdapter = new MediaAdapter(getContext() ,(List<MyMedia>)(List<?>) filmIndo , filmIndoListener);
                             filmIndoView.setAdapter(filmIndoAdapter);
+                            filmIndoView.setNestedScrollingEnabled(false);
                         }
                     });
                 }

@@ -13,24 +13,17 @@ import com.google.android.material.tabs.TabItem;
 import com.google.android.material.tabs.TabLayout;
 import com.theflexproject.thunder.R;
 import com.theflexproject.thunder.adapter.FragmentHomeAdapter;
-import com.theflexproject.thunder.adapter.FragmentViewPagerAdapter;
 
 public class HomeNewFragment extends BaseFragment {
 
-    TabLayout tabLayout ;
+    TabLayout tabLayout;
     TabItem moviesTab;
     TabItem tvTab;
-    TabItem filesTab;
     ViewPager2 viewPagerLibrary;
     FragmentHomeAdapter fragmentViewPagerAdapter;
 
     public HomeNewFragment() {
         // Required empty public constructor
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
     }
 
     @Override
@@ -43,9 +36,13 @@ public class HomeNewFragment extends BaseFragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initWidgets();
-        tabLayout = mActivity.findViewById(R.id.tabLayout2);
-        moviesTab = mActivity.findViewById(R.id.movieTab2);
-        tvTab = mActivity.findViewById(R.id.seriesTab);
+
+        // Initialize TabLayout and ViewPager2 after initWidgets()
+        tabLayout = view.findViewById(R.id.tabLayout2);
+        viewPagerLibrary = view.findViewById(R.id.homePagerLibrary);
+
+        moviesTab = view.findViewById(R.id.movieTab2);
+        tvTab = view.findViewById(R.id.seriesTab);
 
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
@@ -55,14 +52,13 @@ public class HomeNewFragment extends BaseFragment {
 
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {
-
             }
 
             @Override
             public void onTabReselected(TabLayout.Tab tab) {
-
             }
         });
+
         viewPagerLibrary.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
             @Override
             public void onPageSelected(int position) {
@@ -70,18 +66,14 @@ public class HomeNewFragment extends BaseFragment {
             }
         });
 
+        // Disable user swiping in the ViewPager2
+        viewPagerLibrary.setUserInputEnabled(false);
     }
 
     private void initWidgets() {
-
-
-
-        tabLayout = mActivity.findViewById(R.id.tabLayout2);
         viewPagerLibrary = mActivity.findViewById(R.id.homePagerLibrary);
         fragmentViewPagerAdapter = new FragmentHomeAdapter(this);
         viewPagerLibrary.setSaveEnabled(false);
         viewPagerLibrary.setAdapter(fragmentViewPagerAdapter);
-
-
     }
 }

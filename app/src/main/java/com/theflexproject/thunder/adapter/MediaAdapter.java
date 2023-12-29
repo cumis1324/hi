@@ -48,6 +48,7 @@ public class MediaAdapter extends RecyclerView.Adapter<MediaAdapter.MediaAdapter
         return new MediaAdapterHolder(view);
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull MediaAdapterHolder holder, int position) {
         
@@ -100,8 +101,10 @@ public class MediaAdapter extends RecyclerView.Adapter<MediaAdapter.MediaAdapter
         if(mediaList.get(position) instanceof TVShowSeasonDetails){
             TVShowSeasonDetails tvShowSeason = ((TVShowSeasonDetails)mediaList.get(position));
             if(tvShowSeason.getName()!=null){
-                holder.name.setVisibility(View.VISIBLE);
-                holder.name.setText(tvShowSeason.getName());
+                //holder.name.setVisibility(View.VISIBLE);
+                //holder.name.setText(tvShowSeason.getName());
+                holder.season2.setVisibility(View.VISIBLE);
+                holder.season2.setText("Season " + tvShowSeason.getSeason_number());
                 String poster_path = tvShowSeason.getPoster_path();
                 if(poster_path!=null){
                     Glide.with(context)
@@ -131,6 +134,7 @@ public class MediaAdapter extends RecyclerView.Adapter<MediaAdapter.MediaAdapter
     public class MediaAdapterHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
         TextView name;
+        TextView season2;
         ImageView poster;
         TextView movieYear;
         ImageView star;
@@ -145,6 +149,7 @@ public class MediaAdapter extends RecyclerView.Adapter<MediaAdapter.MediaAdapter
             star = itemView.findViewById(R.id.starRate);
             textStar = itemView.findViewById(R.id.textStar);
             watched = itemView.findViewById(R.id.markWatchedMedia);
+            season2 = itemView.findViewById(R.id.season2);
 
             itemView.setOnClickListener(this);
         }
