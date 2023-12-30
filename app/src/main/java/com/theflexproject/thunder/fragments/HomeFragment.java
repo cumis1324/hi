@@ -383,9 +383,7 @@ public class HomeFragment extends BaseFragment {
                         }
                     });
                 }
-                else {
-                    scanButton.performClick();
-                }
+
             }});
         thread.start();
     }
