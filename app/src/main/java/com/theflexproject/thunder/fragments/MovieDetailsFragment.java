@@ -2,22 +2,26 @@ package com.theflexproject.thunder.fragments;
 
 import static android.content.Context.DOWNLOAD_SERVICE;
 import static com.theflexproject.thunder.Constants.TMDB_BACKDROP_IMAGE_BASE_URL;
+import static com.theflexproject.thunder.fragments.EpisodeDetailsFragment.REQUEST_WRITE_EXTERNAL_STORAGE_PERMISSION;
 
 import com.google.firebase.dynamiclinks.DynamicLink;
 import com.google.firebase.dynamiclinks.FirebaseDynamicLinks;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.DownloadManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.os.Environment;
 import android.os.Handler;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -39,6 +43,8 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -591,13 +597,31 @@ public class MovieDetailsFragment extends BaseFragment{
         download.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // Check if the app has the WRITE_EXTERNAL_STORAGE permission
+                if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                        != PackageManager.PERMISSION_GRANTED) {
+                    // Request the permission if it is not granted
+                    ActivityCompat.requestPermissions(getActivity(),
+                            new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                            REQUEST_WRITE_EXTERNAL_STORAGE_PERMISSION);
+                } else {
+                    // Permission is already granted, proceed with the download
+                    startDownload();
+                }
+
+
+            }
+
+            private void startDownload() {
+                String customFolderPath = "/nfgplus/movies/";
                 DownloadManager manager = (DownloadManager) mActivity.getSystemService(DOWNLOAD_SERVICE);
                 Uri uri = Uri.parse(largestFile.getUrlString());
                 DownloadManager.Request request = new DownloadManager.Request(uri);
+                request.setDestinationInExternalPublicDir(Environment.DIRECTORY_MOVIES, customFolderPath + largestFile.getFileName());
                 request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE)
                         .setDescription("Downloading");
                 long reference = manager.enqueue(request);
-                Toast.makeText(getContext(),"Download Started",Toast.LENGTH_LONG).show();
+                Toast.makeText(getContext(), "Download Started", Toast.LENGTH_LONG).show();
             }
         });
 

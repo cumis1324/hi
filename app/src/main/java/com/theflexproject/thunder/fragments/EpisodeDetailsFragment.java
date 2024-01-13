@@ -3,14 +3,17 @@ package com.theflexproject.thunder.fragments;
 import static android.content.Context.DOWNLOAD_SERVICE;
 import static com.theflexproject.thunder.Constants.TMDB_BACKDROP_IMAGE_BASE_URL;
 
+import android.Manifest;
 import android.app.DownloadManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,6 +26,8 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -53,6 +58,7 @@ import java.util.Locale;
 public class EpisodeDetailsFragment extends BaseFragment {
 
 
+    static final int REQUEST_WRITE_EXTERNAL_STORAGE_PERMISSION = 0;
     TextView showName;
     TextView episodeName;
     ImageView episodeStill;
@@ -317,22 +323,57 @@ public class EpisodeDetailsFragment extends BaseFragment {
             }
         });
 
+
         download.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DownloadManager manager = (DownloadManager) mActivity.getSystemService(DOWNLOAD_SERVICE);
-                Uri uri = Uri.parse(largestFile.getUrlString());
-                DownloadManager.Request request = new DownloadManager.Request(uri);
-                request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE)
-                        .setDescription("Downloading");
-                long reference = manager.enqueue(request);
-                Toast.makeText(getContext(),"Download Started",Toast.LENGTH_LONG).show();
+                // Check if the app has the WRITE_EXTERNAL_STORAGE permission
+                if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                        != PackageManager.PERMISSION_GRANTED) {
+                    // Request the permission if it is not granted
+                    ActivityCompat.requestPermissions(getActivity(),
+                            new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                            REQUEST_WRITE_EXTERNAL_STORAGE_PERMISSION);
+                } else {
+                    // Permission is already granted, proceed with the download
+                    startDownload();
+                }
+
+
             }
+
+
         });
 
 
     }
 
+    private void startDownload() {
+        String customFolderPath = "/nfgplus/series/";
+        DownloadManager manager = (DownloadManager) mActivity.getSystemService(DOWNLOAD_SERVICE);
+        Uri uri = Uri.parse(largestFile.getUrlString());
+        DownloadManager.Request request = new DownloadManager.Request(uri);
+        request.setDestinationInExternalPublicDir(Environment.DIRECTORY_MOVIES, customFolderPath + largestFile.getFileName());
+        request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE)
+                .setDescription("Downloading");
+        long reference = manager.enqueue(request);
+        Toast.makeText(getContext(), "Download Started", Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        if (requestCode == REQUEST_WRITE_EXTERNAL_STORAGE_PERMISSION) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                // Permission granted, proceed with the download
+                startDownload();
+            } else {
+                // Permission denied, show a message or take appropriate action
+                Toast.makeText(getContext(), "Write external storage permission denied", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
     private void addToLastPlayed() {
         Thread thread = new Thread(new Runnable() {
             @Override
