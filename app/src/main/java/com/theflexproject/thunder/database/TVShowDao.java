@@ -15,7 +15,7 @@ public interface TVShowDao {
     @Query("SELECT  * FROM TVShow")
     List<TVShow> getAll();
 
-    @Query("SELECT Distinct * FROM TVShow")
+    @Query("SELECT * FROM TVShow WHERE poster_path IS NOT NULL GROUP BY name ORDER BY name ASC")
     List<TVShow> getAllByTitles();
 
     @Query("SELECT * FROM TVShow WHERE TVShow.name LIKE '%' || :string || '%' OR TVShow.overview like '%' || :string || '%' ")
@@ -27,12 +27,12 @@ public interface TVShowDao {
     @Query("SELECT * FROM TVShow WHERE name LIKE :name")
     TVShow getByShowName(String name);
 
-    @Query("SELECT * FROM TVShow order by last_air_date desc")
+    @Query("SELECT * FROM TVShow WHERE poster_path IS NOT NULL GROUP BY name order by last_air_date desc")
     List<TVShow> getNewShows();
     @Query("SELECT * FROM TVShow WHERE backdrop_path IS NOT NULL AND original_language = 'ko' GROUP BY name ORDER BY last_air_date DESC")
     List<TVShow> getDrakor();
 
-    @Query("SELECT * FROM TVShow WHERE original_language != 'ko' order by vote_average desc")
+    @Query("SELECT * FROM TVShow WHERE poster_path IS NOT NULL and original_language != 'ko' GROUP BY name order by vote_average desc")
     List<TVShow> getTopRated();
     @Query("SELECT * FROM TVShow WHERE poster_path IS NOT NULL AND last_air_date>= '2023-01-01' GROUP BY name ORDER BY (popularity + last_air_date) DESC LIMIT 10")
     List<TVShow> getTrending();

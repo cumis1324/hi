@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 30,
-    "identityHash": "08dd72855bc8cc1b99a206041a4332cd",
+    "identityHash": "2e3e519f236c609767841a095fe5bd36",
     "entities": [
       {
         "tableName": "ResFormat",
@@ -50,7 +50,7 @@
       },
       {
         "tableName": "Movie",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`fileidForDB` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `fileName` TEXT, `mimeType` TEXT, `modifiedTime` INTEGER, `size` TEXT, `urlString` TEXT, `downloadString` TEXT, `gd_id` TEXT DEFAULT '', `logo_path` TEXT DEFAULT '', `index_id` INTEGER NOT NULL DEFAULT 0, `addToList` INTEGER NOT NULL DEFAULT 0, `disabled` INTEGER NOT NULL DEFAULT 0, `Played` INTEGER NOT NULL, `adult` INTEGER NOT NULL, `backdrop_path` TEXT, `budget` INTEGER NOT NULL, `genres` TEXT, `homepage` TEXT, `id` INTEGER NOT NULL, `imdb_id` TEXT, `original_language` TEXT, `original_title` TEXT, `overview` TEXT, `popularity` REAL NOT NULL, `poster_path` TEXT, `release_date` TEXT, `revenue` INTEGER NOT NULL, `runtime` INTEGER NOT NULL, `status` TEXT, `tagline` TEXT, `title` TEXT, `video` INTEGER NOT NULL, `vote_average` REAL NOT NULL, `vote_count` INTEGER NOT NULL)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`fileidForDB` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `fileName` TEXT, `mimeType` TEXT, `modifiedTime` INTEGER, `size` TEXT, `urlString` TEXT, `gd_id` TEXT DEFAULT '', `logo_path` TEXT DEFAULT '', `index_id` INTEGER NOT NULL DEFAULT 0, `addToList` INTEGER NOT NULL DEFAULT 0, `disabled` INTEGER NOT NULL DEFAULT 0, `Played` INTEGER NOT NULL, `adult` INTEGER NOT NULL, `backdrop_path` TEXT, `budget` INTEGER NOT NULL, `genres` TEXT, `homepage` TEXT, `id` INTEGER NOT NULL, `imdb_id` TEXT, `original_language` TEXT, `original_title` TEXT, `overview` TEXT, `popularity` REAL NOT NULL, `poster_path` TEXT, `release_date` TEXT, `revenue` INTEGER NOT NULL, `runtime` INTEGER NOT NULL, `status` TEXT, `tagline` TEXT, `title` TEXT, `video` INTEGER NOT NULL, `vote_average` REAL NOT NULL, `vote_count` INTEGER NOT NULL)",
         "fields": [
           {
             "fieldPath": "fileidForDB",
@@ -85,12 +85,6 @@
           {
             "fieldPath": "urlString",
             "columnName": "urlString",
-            "affinity": "TEXT",
-            "notNull": false
-          },
-          {
-            "fieldPath": "downloadString",
-            "columnName": "downloadString",
             "affinity": "TEXT",
             "notNull": false
           },
@@ -727,7 +721,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '08dd72855bc8cc1b99a206041a4332cd')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '2e3e519f236c609767841a095fe5bd36')"
     ]
   }
 }
