@@ -121,6 +121,8 @@ public class SettingsFragment extends BaseFragment {
         currentUser = manager.getCurrentUser();
         databaseReference = FirebaseDatabase.getInstance().getReference("Users");
         storageReference = FirebaseStorage.getInstance().getReference("profile_images");
+        watchlistRecyclerView = view.findViewById(R.id.watchListMediaRecycler2);
+        lastPlayedMoviesRecyclerView = view.findViewById(R.id.lastPlayedMoviesRecycler2);
         updateUI();
         initWidgets();
         setStatesOfToggleSwitches();
@@ -391,7 +393,7 @@ public class SettingsFragment extends BaseFragment {
                         @Override
                         public void run() {
                             ScaleCenterItemLayoutManager linearLayoutManager3 = new ScaleCenterItemLayoutManager(getContext() , LinearLayoutManager.HORIZONTAL , false);
-                            lastPlayedMoviesRecyclerView = mActivity.findViewById(R.id.lastPlayedMoviesRecycler2);
+
                             lastPlayedMoviesRecyclerView.setVisibility(View.VISIBLE);
                             lastPlayedMoviesRecyclerView.setLayoutManager(linearLayoutManager3);
                             lastPlayedMoviesRecyclerView.setHasFixedSize(true);
@@ -428,7 +430,7 @@ public class SettingsFragment extends BaseFragment {
                         @Override
                         public void run() {
                             ScaleCenterItemLayoutManager linearLayoutManager3 = new ScaleCenterItemLayoutManager(getContext() , LinearLayoutManager.HORIZONTAL , false);
-                            watchlistRecyclerView = mActivity.findViewById(R.id.watchListMediaRecycler2);
+
                             watchlistRecyclerView.setVisibility(View.VISIBLE);
                             watchlistRecyclerView.setLayoutManager(linearLayoutManager3);
                             watchlistRecyclerView.setHasFixedSize(true);
