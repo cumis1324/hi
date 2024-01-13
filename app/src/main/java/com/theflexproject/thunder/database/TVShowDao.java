@@ -18,7 +18,7 @@ public interface TVShowDao {
     @Query("SELECT * FROM TVShow WHERE poster_path IS NOT NULL GROUP BY name ORDER BY name ASC")
     List<TVShow> getAllByTitles();
 
-    @Query("SELECT * FROM TVShow WHERE TVShow.name LIKE '%' || :string || '%' OR TVShow.overview like '%' || :string || '%' ")
+    @Query("SELECT * FROM TVShow WHERE TVShow.name LIKE '%' || :string || '%' OR TVShow.overview like '%' || :string || '%' GROUP BY name")
     List<TVShow> getSearchQuery(String string);
 
     @Query("SELECT * FROM TVShow WHERE id LIKE :id")
@@ -56,7 +56,7 @@ public interface TVShowDao {
     @Query("UPDATE TVShow SET addToList=1 WHERE id=:tvId")
     void updateAddToList(int tvId);
 
-    @Query("select * from TVShow where addToList=1 ")
+    @Query("select * from TVShow where addToList=1 GROUP BY name")
     List<TVShow> getWatchlisted();
 
     @Query("UPDATE TVShow SET addToList=0 WHERE id=:tvShowId")

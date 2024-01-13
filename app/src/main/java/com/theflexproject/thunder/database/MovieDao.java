@@ -25,7 +25,7 @@ public interface MovieDao {
     @Query("SELECT * FROM Movie WHERE id=:id and disabled=0 ORDER BY size DESC limit 1 ")
     Movie byIdLargest(int id);
 
-    @Query("SELECT * FROM Movie WHERE (fileName LIKE '%' || :string || '%' OR title like '%' || :string || '%' OR urlString like '%' || :string || '%' or overview like '%' || :string || '%') and disabled=0")
+    @Query("SELECT * FROM Movie WHERE (fileName LIKE '%' || :string || '%' OR title like '%' || :string || '%' OR urlString like '%' || :string || '%' or overview like '%' || :string || '%') and disabled=0 GROUP BY title")
     List<Movie> getSearchQuery(String string);
 
     @Query("SELECT * FROM Movie WHERE fileName LIKE :fileName and disabled=0")
@@ -82,7 +82,7 @@ public interface MovieDao {
     List<Movie> getAllByFileName(String fileName);
 
 
-    @Query("SELECT COUNT (fileName) FROM Movie WHERE index_id =:index_id AND TITLE IS NOT NULL")
+    @Query("SELECT COUNT (fileName) FROM Movie WHERE index_id =:index_id AND TITLE IS NOT NULL GROUP BY TITLE")
     int getNoOfMovies(int index_id);
 
     @Query("UPDATE Movie set disabled=1 WHERE index_id=:index_id ")
