@@ -153,6 +153,20 @@ public class HomeFragment extends BaseFragment {
         swipeRefreshLayout = view.findViewById(R.id.swipeRefreshLayout);
         floatingActionButton = mActivity.findViewById(R.id.scanContainer);
         scanButton = mActivity.findViewById(R.id.floating_scan);
+        watchlistRecyclerView = view.findViewById(R.id.watchListMediaRecycler);
+        trendingRecyclerView = view.findViewById(R.id.trendingRecycler);
+        recentlyAddedRecyclerView = view.findViewById(R.id.recentlyAddedRecycler);
+        recentlyReleasedRecyclerView = view.findViewById(R.id.recentlyReleasedMoviesRecycler);
+        topRatedMoviesRecyclerView = view.findViewById(R.id.topRatedMoviesRecycler);
+        lastPlayedMoviesRecyclerView = view.findViewById(R.id.lastPlayedMoviesRecycler);
+        filmIndoView = view.findViewById(R.id.filmIndoRecycler);
+        trendingTitle = view.findViewById(R.id.trending);
+        recentlyReleasedRecyclerViewTitle = view.findViewById(R.id.newReleasesMovies);
+        topRatedMoviesRecyclerViewTitle = view.findViewById(R.id.topRatedMovies);
+        recentlyAddedRecyclerViewTitle = view.findViewById(R.id.recentlyAdded);
+        lastPlayedMoviesRecyclerViewTitle = view.findViewById(R.id.lastPlayedMovies2);
+        watchlistRecyclerViewTitle = view.findViewById(R.id.watchListMedia1);
+        filmIndoTitle = view.findViewById(R.id.filmIndo);
         loadTrending();
         loadRecentlyAddedMovies();
         loadRecentlyReleasedMovies();
@@ -233,10 +247,10 @@ public class HomeFragment extends BaseFragment {
                         @Override
                         public void run() {
                             ScaleCenterItemLayoutManager linearLayoutManager3 = new ScaleCenterItemLayoutManager(getContext() , LinearLayoutManager.HORIZONTAL , false);
-                            watchlistRecyclerViewTitle = mActivity.findViewById(R.id.watchListMedia);
-                            watchlistRecyclerViewTitle.setVisibility(View.VISIBLE);
-                            watchlistRecyclerView = mActivity.findViewById(R.id.watchListMediaRecycler);
-                            watchlistRecyclerView.setVisibility(View.VISIBLE);
+
+                           watchlistRecyclerViewTitle.setVisibility(View.VISIBLE);
+
+                            //watchlistRecyclerView.setVisibility(View.VISIBLE);
                             watchlistRecyclerView.setLayoutManager(linearLayoutManager3);
                             watchlistRecyclerView.setHasFixedSize(true);
                             watchlistRecyclerViewAdapter = new MediaAdapter(getContext() ,(List<MyMedia>)(List<?>) ogtop , watchlistListener);
@@ -282,9 +296,9 @@ public class HomeFragment extends BaseFragment {
                     mActivity.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            recentlyAddedRecyclerViewTitle = mActivity.findViewById(R.id.recentlyAdded);
+
                             recentlyAddedRecyclerViewTitle.setVisibility(View.VISIBLE);
-                            recentlyAddedRecyclerView = mActivity.findViewById(R.id.recentlyAddedRecycler);
+
                             recentlyAddedRecyclerView.setLayoutManager(new ScaleCenterItemLayoutManager(getContext() , RecyclerView.HORIZONTAL , false));
                             recentlyAddedRecyclerView.setHasFixedSize(true);
                             recentlyAddedRecyclerAdapter = new BannerRecyclerAdapter(getContext(), recentlyAddedMovies , recentlyAddedListener);
@@ -312,9 +326,9 @@ public class HomeFragment extends BaseFragment {
                         @Override
                         public void run() {
                             ScaleCenterItemLayoutManager linearLayoutManager1 = new ScaleCenterItemLayoutManager(getContext() , LinearLayoutManager.HORIZONTAL , false);
-                            recentlyReleasedRecyclerViewTitle = mActivity.findViewById(R.id.newReleasesMovies);
+
                             recentlyReleasedRecyclerViewTitle.setVisibility(View.VISIBLE);
-                            recentlyReleasedRecyclerView = mActivity.findViewById(R.id.recentlyReleasedMoviesRecycler);
+
                             recentlyReleasedRecyclerView.setLayoutManager(linearLayoutManager1);
                             recentlyReleasedRecyclerView.setHasFixedSize(true);
                             recentlyReleasedRecyclerViewAdapter = new MediaAdapter(getContext(),(List<MyMedia>)(List<?>) recentlyReleasedMovies, recentlyReleasedListener);
@@ -341,9 +355,9 @@ public class HomeFragment extends BaseFragment {
                         @Override
                         public void run() {
                             ScaleCenterItemLayoutManager linearLayoutManager2 = new ScaleCenterItemLayoutManager(getContext() , LinearLayoutManager.HORIZONTAL , false);
-                            topRatedMoviesRecyclerViewTitle = mActivity.findViewById(R.id.topRatedMovies);
+
                             topRatedMoviesRecyclerViewTitle.setVisibility(View.VISIBLE);
-                            topRatedMoviesRecyclerView = mActivity.findViewById(R.id.topRatedMoviesRecycler);
+
                             topRatedMoviesRecyclerView.setLayoutManager(linearLayoutManager2);
                             topRatedMoviesRecyclerView.setHasFixedSize(true);
                             topRatedMoviesRecyclerViewAdapter = new BannerRecyclerAdapter(getContext(), topRatedMovies , topRatedMoviesListener);
@@ -372,9 +386,9 @@ public class HomeFragment extends BaseFragment {
                         public void run() {
                             floatingActionButton.setVisibility(View.GONE);
                             ScaleCenterItemLayoutManager linearLayoutManager2 = new ScaleCenterItemLayoutManager(getContext() , LinearLayoutManager.HORIZONTAL , false);
-                            trendingTitle = mActivity.findViewById(R.id.trending);
+
                             trendingTitle.setVisibility(View.VISIBLE);
-                            trendingRecyclerView = mActivity.findViewById(R.id.trendingRecycler);
+
                             trendingRecyclerView.setLayoutManager(linearLayoutManager2);
                             trendingRecyclerView.setHasFixedSize(true);
                             trendingMoviesRecyclerAdapter = new MediaAdapter(getContext() ,(List<MyMedia>)(List<?>) trending , trendingListener);
@@ -418,10 +432,10 @@ public class HomeFragment extends BaseFragment {
                         @Override
                         public void run() {
                             ScaleCenterItemLayoutManager linearLayoutManager3 = new ScaleCenterItemLayoutManager(getContext() , LinearLayoutManager.HORIZONTAL , false);
-                            lastPlayedMoviesRecyclerViewTitle = mActivity.findViewById(R.id.lastPlayedMovies);
+
                             lastPlayedMoviesRecyclerViewTitle.setVisibility(View.VISIBLE);
-                            lastPlayedMoviesRecyclerView = mActivity.findViewById(R.id.lastPlayedMoviesRecycler);
-                            lastPlayedMoviesRecyclerView.setVisibility(View.VISIBLE);
+
+                            //lastPlayedMoviesRecyclerView.setVisibility(View.VISIBLE);
                             lastPlayedMoviesRecyclerView.setLayoutManager(linearLayoutManager3);
                             lastPlayedMoviesRecyclerView.setHasFixedSize(true);
                             lastPlayedMoviesRecyclerViewAdapter = new MediaAdapter(getContext() ,(List<MyMedia>)(List<?>) someRecom , lastPlayedListener);
@@ -448,9 +462,9 @@ public class HomeFragment extends BaseFragment {
                         @Override
                         public void run() {
                             ScaleCenterItemLayoutManager linearLayoutManager2 = new ScaleCenterItemLayoutManager(getContext() , LinearLayoutManager.HORIZONTAL , false);
-                            filmIndoTitle = mActivity.findViewById(R.id.filmIndo);
+
                             filmIndoTitle.setVisibility(View.VISIBLE);
-                            filmIndoView = mActivity.findViewById(R.id.filmIndoRecycler);
+
                             filmIndoView.setLayoutManager(linearLayoutManager2);
                             filmIndoView.setHasFixedSize(true);
                             filmIndoAdapter = new MediaAdapter(getContext() ,(List<MyMedia>)(List<?>) filmIndo , filmIndoListener);

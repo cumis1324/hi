@@ -115,8 +115,8 @@
             android:textColor="@color/white"
             android:visibility="gone"
             android:shadowColor="@color/black"
-            android:shadowDx="1"
-            android:shadowDy="1"
+            android:shadowDx="3"
+            android:shadowDy="3"
             android:shadowRadius="1"
             />
     </RelativeLayout>

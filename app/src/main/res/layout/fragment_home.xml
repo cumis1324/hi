@@ -107,7 +107,7 @@
                 tools:listitem="@layout/movie_item_banner" />
 
             <TextView
-                android:id="@+id/lastPlayedMovies"
+                android:id="@+id/lastPlayedMovies2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/jost_medium"
@@ -127,7 +127,7 @@
                  />
 
             <TextView
-                android:id="@+id/watchListMedia"
+                android:id="@+id/watchListMedia1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/jost_medium"

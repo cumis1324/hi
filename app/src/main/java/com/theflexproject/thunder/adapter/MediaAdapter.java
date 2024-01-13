@@ -21,12 +21,15 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
 import com.theflexproject.thunder.Constants;
 import com.theflexproject.thunder.R;
+import com.theflexproject.thunder.database.DatabaseClient;
 import com.theflexproject.thunder.model.Movie;
 import com.theflexproject.thunder.model.MyMedia;
+import com.theflexproject.thunder.model.TVShowInfo.Episode;
 import com.theflexproject.thunder.model.TVShowInfo.TVShow;
 import com.theflexproject.thunder.model.TVShowInfo.TVShowSeasonDetails;
 
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.List;
 
 public class MediaAdapter extends RecyclerView.Adapter<MediaAdapter.MediaAdapterHolder> {
@@ -51,7 +54,7 @@ public class MediaAdapter extends RecyclerView.Adapter<MediaAdapter.MediaAdapter
     @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull MediaAdapterHolder holder, int position) {
-        
+
         if(mediaList.get(position) instanceof Movie) {
             Movie movie = ((Movie)mediaList.get(position));
            // if(movie.getTitle()==null){
@@ -103,8 +106,9 @@ public class MediaAdapter extends RecyclerView.Adapter<MediaAdapter.MediaAdapter
             if(tvShowSeason.getName()!=null){
                 //holder.name.setVisibility(View.VISIBLE);
                 //holder.name.setText(tvShowSeason.getName());
+
                 holder.season2.setVisibility(View.VISIBLE);
-                holder.season2.setText("Season " + tvShowSeason.getSeason_number());
+                holder.season2.setText(tvShowSeason.getName());
                 String poster_path = tvShowSeason.getPoster_path();
                 if(poster_path!=null){
                     Glide.with(context)

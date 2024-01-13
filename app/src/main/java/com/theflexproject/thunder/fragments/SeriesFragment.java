@@ -81,6 +81,14 @@ public class SeriesFragment extends BaseFragment{
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         swipeRefreshLayout = view.findViewById(R.id.swipeRefreshLayout2);
+        trendingTitle = view.findViewById(R.id.trendingSeries);
+        trendingView = view.findViewById(R.id.trendingSeriesRecycler);
+        drakorTitle = view.findViewById(R.id.drakor);
+        drakorView = view.findViewById(R.id.drakorRecycler);
+        newSeasonRecyclerViewTitle = view.findViewById(R.id.newSeason);
+        newSeasonRecyclerView = view.findViewById(R.id.newSeasonRecycler);
+        recommendedText = view.findViewById(R.id.topRatedTVShows);
+        recommendedView = view.findViewById(R.id.topRatedTVShowsRecycler);
 
         loadTrendingSeries();
         loadDrakor();
@@ -126,9 +134,8 @@ public class SeriesFragment extends BaseFragment{
                     mActivity.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            trendingTitle = mActivity.findViewById(R.id.trendingSeries);
+
                             trendingTitle.setVisibility(View.VISIBLE);
-                            trendingView = mActivity.findViewById(R.id.trendingSeriesRecycler);
                             trendingView.setLayoutManager(new ScaleCenterItemLayoutManager(getContext() , RecyclerView.HORIZONTAL , false));
                             trendingView.setHasFixedSize(true);
                             trendingAdapter = new DrakorBannerAdapter(getContext(), seriesTrending , trendingListener);
@@ -157,9 +164,8 @@ public class SeriesFragment extends BaseFragment{
                         @Override
                         public void run() {
                             ScaleCenterItemLayoutManager linearLayoutManager2 = new ScaleCenterItemLayoutManager(getContext() , LinearLayoutManager.HORIZONTAL , false);
-                            drakorTitle = mActivity.findViewById(R.id.drakor);
+
                             drakorTitle.setVisibility(View.VISIBLE);
-                            drakorView = mActivity.findViewById(R.id.drakorRecycler);
                             drakorView.setLayoutManager(linearLayoutManager2);
                             drakorView.setHasFixedSize(true);
                             drakorAdapter = new DrakorBannerAdapter(getContext(), drakor , drakorListener);
@@ -184,11 +190,9 @@ public class SeriesFragment extends BaseFragment{
                         @Override
                         public void run() {
                             ScaleCenterItemLayoutManager linearLayoutManager3 = new ScaleCenterItemLayoutManager(getContext() , LinearLayoutManager.HORIZONTAL , false);
-                            newSeasonRecyclerViewTitle = mActivity.findViewById(R.id.newSeason);
+
                             newSeasonRecyclerViewTitle.setVisibility(View.VISIBLE);
-                            newSeasonRecyclerView = mActivity.findViewById(R.id.newSeasonRecycler);
                             newSeasonRecyclerView.setVisibility(View.VISIBLE);
-                            newSeasonRecyclerView = mActivity.findViewById(R.id.newSeasonRecycler);
                             newSeasonRecyclerView.setLayoutManager(linearLayoutManager3);
                             newSeasonRecyclerView.setHasFixedSize(true);
                             newSeasonRecyclerAdapter = new MediaAdapter(getContext() ,(List<MyMedia>)(List<?>) newSeason , newSeasonListener);
@@ -221,9 +225,8 @@ public class SeriesFragment extends BaseFragment{
                         @Override
                         public void run() {
                             ScaleCenterItemLayoutManager linearLayoutManager3 = new ScaleCenterItemLayoutManager(getContext() , LinearLayoutManager.HORIZONTAL , false);
-                            recommendedText = mActivity.findViewById(R.id.topRatedTVShows);
+
                             recommendedText.setVisibility(View.VISIBLE);
-                            recommendedView = mActivity.findViewById(R.id.topRatedTVShowsRecycler);
                             recommendedView.setLayoutManager(linearLayoutManager3);
                             recommendedView.setHasFixedSize(true);
                             recommendedAdapter = new MediaAdapter(getContext() , (List<MyMedia>)(List<?>) recommended , recommendedListener);

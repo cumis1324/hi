@@ -128,7 +128,6 @@
                         android:id="@+id/noOfEpisodesInSeason"
                         style="@style/sizelabel"
                         android:layout_width="wrap_content"
-
                         android:layout_height="wrap_content"
                         android:layout_toEndOf="@id/dot2"
                         android:fontFamily="@font/jost_regular"
