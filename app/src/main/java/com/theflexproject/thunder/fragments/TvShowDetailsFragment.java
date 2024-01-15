@@ -282,13 +282,7 @@ public class TvShowDetailsFragment extends BaseFragment {
                 }});
             thread.start();
 
-//            Handler handler = new Handler();
-//            handler.postDelayed(new Runnable() {
-//                @Override
-//                public void run() {
-//                    loadSeasonRecycler();
-//                }
-//            },300);
+
         }catch (NullPointerException exception){Log.i("Error",exception.toString());}
     }
 

@@ -120,14 +120,6 @@
                         />
                 </FrameLayout>
 
-            <FrameLayout
-                android:id="@+id/adView"
-                android:layout_marginTop="5dp"
-                android:layout_width="match_parent"
-                android:layout_height="75dp"
-                android:layout_below="@id/spaceframe2"
-                android:background="@color/transparent"
-                />
             </RelativeLayout>
 
             <RelativeLayout
@@ -608,7 +600,13 @@
 
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
-
+                    <FrameLayout
+                        android:id="@+id/adView"
+                        android:layout_marginTop="5dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="75dp"
+                        android:background="@color/transparent"
+                        />
                     <TextView
                         android:id="@+id/moremoviestitle"
                         android:layout_width="match_parent"

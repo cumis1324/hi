@@ -29,7 +29,7 @@ public interface TVShowSeasonDetailsDao {
     @Query("Delete FROM TVShowSeasonDetails WHERE show_id=:show_id")
     void deleteByShowId(long show_id);
 
-    @Query("SELECT * FROM TVShowSeasonDetails WHERE show_id=:show_id order by season_number")
+    @Query("SELECT * FROM TVShowSeasonDetails WHERE show_id=:show_id group by name order by season_number")
     List<TVShowSeasonDetails> findByShowId(long show_id);
 
     @Query("SELECT * FROM TVShowSeasonDetails WHERE show_id=:tvShowId and season_number=:finalSeasonNumber")

@@ -143,7 +143,7 @@ public class MovieDetailsFragment extends BaseFragment{
 
 
     //adview
-    private static final String AD_UNIT_ID = "ca-app-pub-5906976337228746/4254282739";
+    private static final String AD_UNIT_ID = "ca-app-pub-3940256099942544/9214589741";
     private AdView adView;
     private FrameLayout adContainerView;
     private RelativeLayout relativeContainer;
@@ -184,6 +184,7 @@ public class MovieDetailsFragment extends BaseFragment{
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
         size = view.findViewById(R.id.sizeTextInFileItem1);
         quality = view.findViewById(R.id.videoQualityTextInFileItem1);
         //adview
