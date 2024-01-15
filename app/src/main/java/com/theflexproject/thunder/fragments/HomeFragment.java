@@ -49,7 +49,9 @@ import static com.theflexproject.thunder.utils.IndexUtils.getNoOfMedia;
 import static com.theflexproject.thunder.utils.IndexUtils.refreshIndex;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Random;
 
 
 public class HomeFragment extends BaseFragment {
@@ -246,6 +248,10 @@ public class HomeFragment extends BaseFragment {
                     mActivity.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
+                            Random random = new Random();
+
+                            Collections.shuffle(ogtop);
+
                             ScaleCenterItemLayoutManager linearLayoutManager3 = new ScaleCenterItemLayoutManager(getContext() , LinearLayoutManager.HORIZONTAL , false);
 
                            watchlistRecyclerViewTitle.setVisibility(View.VISIBLE);
@@ -253,7 +259,7 @@ public class HomeFragment extends BaseFragment {
                             //watchlistRecyclerView.setVisibility(View.VISIBLE);
                             watchlistRecyclerView.setLayoutManager(linearLayoutManager3);
                             watchlistRecyclerView.setHasFixedSize(true);
-                            watchlistRecyclerViewAdapter = new MediaAdapter(getContext() ,(List<MyMedia>)(List<?>) ogtop , watchlistListener);
+                            watchlistRecyclerViewAdapter = new MediaAdapter(getContext() ,ogtop , watchlistListener);
                             watchlistRecyclerView.setAdapter(watchlistRecyclerViewAdapter);
                         }
                     });
@@ -434,11 +440,11 @@ public class HomeFragment extends BaseFragment {
                             ScaleCenterItemLayoutManager linearLayoutManager3 = new ScaleCenterItemLayoutManager(getContext() , LinearLayoutManager.HORIZONTAL , false);
 
                             lastPlayedMoviesRecyclerViewTitle.setVisibility(View.VISIBLE);
-
+                            Collections.shuffle(someRecom);
                             //lastPlayedMoviesRecyclerView.setVisibility(View.VISIBLE);
                             lastPlayedMoviesRecyclerView.setLayoutManager(linearLayoutManager3);
                             lastPlayedMoviesRecyclerView.setHasFixedSize(true);
-                            lastPlayedMoviesRecyclerViewAdapter = new MediaAdapter(getContext() ,(List<MyMedia>)(List<?>) someRecom , lastPlayedListener);
+                            lastPlayedMoviesRecyclerViewAdapter = new MediaAdapter(getContext() ,someRecom , lastPlayedListener);
                             lastPlayedMoviesRecyclerView.setAdapter(lastPlayedMoviesRecyclerViewAdapter);
                             lastPlayedMoviesRecyclerView.setNestedScrollingEnabled(false);
                         }
@@ -464,7 +470,7 @@ public class HomeFragment extends BaseFragment {
                             ScaleCenterItemLayoutManager linearLayoutManager2 = new ScaleCenterItemLayoutManager(getContext() , LinearLayoutManager.HORIZONTAL , false);
 
                             filmIndoTitle.setVisibility(View.VISIBLE);
-
+                            Collections.shuffle(filmIndo);
                             filmIndoView.setLayoutManager(linearLayoutManager2);
                             filmIndoView.setHasFixedSize(true);
                             filmIndoAdapter = new MediaAdapter(getContext() ,(List<MyMedia>)(List<?>) filmIndo , filmIndoListener);

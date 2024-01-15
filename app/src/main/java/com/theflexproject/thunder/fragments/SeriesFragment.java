@@ -28,6 +28,7 @@ import com.theflexproject.thunder.model.MyMedia;
 import com.theflexproject.thunder.model.TVShowInfo.TVShow;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import io.reactivex.internal.operators.completable.CompletableMergeDelayErrorArray;
@@ -227,9 +228,10 @@ public class SeriesFragment extends BaseFragment{
                             ScaleCenterItemLayoutManager linearLayoutManager3 = new ScaleCenterItemLayoutManager(getContext() , LinearLayoutManager.HORIZONTAL , false);
 
                             recommendedText.setVisibility(View.VISIBLE);
+                            Collections.shuffle(recommended);
                             recommendedView.setLayoutManager(linearLayoutManager3);
                             recommendedView.setHasFixedSize(true);
-                            recommendedAdapter = new MediaAdapter(getContext() , (List<MyMedia>)(List<?>) recommended , recommendedListener);
+                            recommendedAdapter = new MediaAdapter(getContext() ,recommended , recommendedListener);
                             recommendedView.setAdapter(recommendedAdapter);
                         }
                     });
