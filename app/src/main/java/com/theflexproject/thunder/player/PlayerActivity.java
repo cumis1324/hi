@@ -123,18 +123,14 @@ public class PlayerActivity extends AppCompatActivity implements View.OnClickLis
             clearStartPosition();
         }
 
-        MobileAds.initialize(PlayerActivity.this, new OnInitializationCompleteListener() {
-            @Override
-            public void onInitializationComplete(InitializationStatus initializationStatus) {
-                loadAd();
-            }
-        });
+      loadAd();
 
     }
 
     public void loadAd() {
         // Use the test ad unit ID to load an ad.
-        RewardedInterstitialAd.load(PlayerActivity.this, "ca-app-pub-3940256099942544/5354046379",
+        MobileAds.initialize(this);
+        RewardedInterstitialAd.load(PlayerActivity.this, "ca-app-pub-7142401354409440/8787580101",
                 new AdRequest.Builder().build(),  new RewardedInterstitialAdLoadCallback() {
                     @Override
                     public void onAdLoaded(RewardedInterstitialAd ad) {

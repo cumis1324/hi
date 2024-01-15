@@ -113,7 +113,7 @@ public class SeasonDetailsFragment extends BaseFragment {
     }
     private void loadNative() {
         MobileAds.initialize(mActivity);
-        AdLoader adLoader = new AdLoader.Builder(mActivity, "ca-app-pub-3940256099942544/2247696110")
+        AdLoader adLoader = new AdLoader.Builder(mActivity, "ca-app-pub-7142401354409440/7261340471")
                 .forNativeAd(new NativeAd.OnNativeAdLoadedListener() {
                     @Override
                     public void onNativeAdLoaded(NativeAd nativeAd) {
