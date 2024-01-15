@@ -343,7 +343,11 @@
                         android:textSize="14sp"
                         android:visibility="visible"
                         tools:text="In the 22nd century, a paraplegic Marine is dispatched to the moon Pandora on a unique mission, but becomes torn between following orders and protecting an alien civilization." />
-
+                    <com.google.android.ads.nativetemplates.TemplateView
+                        android:id="@+id/my_template"
+                        app:gnt_template_type="@layout/gnt_medium_template_view"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
                     <TableLayout
                         android:id="@+id/detailsTable"
                         android:layout_width="match_parent"
@@ -600,13 +604,8 @@
 
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
-                    <FrameLayout
-                        android:id="@+id/adView"
-                        android:layout_marginTop="5dp"
-                        android:layout_width="match_parent"
-                        android:layout_height="75dp"
-                        android:background="@color/transparent"
-                        />
+
+
                     <TextView
                         android:id="@+id/moremoviestitle"
                         android:layout_width="match_parent"
@@ -614,17 +613,19 @@
                         android:fontFamily="@font/jost_medium"
                         android:text="@string/donate_a_coffee"
                         android:textColor="@color/white"
+                        android:background="@color/gnt_blue"
                         android:textSize="18sp"
                         android:visibility="visible"/>
-
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/gnt_blue">
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:id="@+id/imageButtonContainer2"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginVertical="5dp"
-                        android:background="@color/black_overlay"
+                        android:background="@color/black85"
                        >
-
                         <ImageButton
                             android:visibility="visible"
                             android:id="@+id/addToListButton2"
@@ -797,6 +798,7 @@
 
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
+                    </RelativeLayout>
 
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/recyclerEpisodes2"

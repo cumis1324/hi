@@ -4,6 +4,11 @@ import static android.content.Context.DOWNLOAD_SERVICE;
 import static com.theflexproject.thunder.Constants.TMDB_BACKDROP_IMAGE_BASE_URL;
 import static com.theflexproject.thunder.fragments.EpisodeDetailsFragment.REQUEST_WRITE_EXTERNAL_STORAGE_PERMISSION;
 
+import com.google.android.ads.nativetemplates.NativeTemplateStyle;
+import com.google.android.ads.nativetemplates.TemplateView;
+import com.google.android.gms.ads.AdLoader;
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.nativead.NativeAd;
 import com.google.firebase.dynamiclinks.DynamicLink;
 import com.google.firebase.dynamiclinks.FirebaseDynamicLinks;
 
@@ -147,15 +152,12 @@ public class MovieDetailsFragment extends BaseFragment{
     private AdView adView;
     private FrameLayout adContainerView;
     private RelativeLayout relativeContainer;
-    private RelativeLayout iklanContainer;
-    private TextView countdownText;
-    private Button closebutton;
-    private Button space1btn;
+
     private ImageButton saweria;
     private ImageButton paypal;
     private ImageButton dana;
     private ImageButton spay;
-    private boolean initialLayoutComplete = false;
+    private TemplateView template;
 
 
 
@@ -187,127 +189,44 @@ public class MovieDetailsFragment extends BaseFragment{
 
         size = view.findViewById(R.id.sizeTextInFileItem1);
         quality = view.findViewById(R.id.videoQualityTextInFileItem1);
-        //adview
-        adContainerView = view.findViewById(R.id.adView);
-        adView = new AdView(requireContext());
-        iklanContainer = view.findViewById(R.id.iklan_container);
-        adContainerView.addView(adView);
-        adContainerView.getViewTreeObserver().addOnGlobalLayoutListener(
-                new ViewTreeObserver.OnGlobalLayoutListener() {
-                    @Override
-                    public void onGlobalLayout() {
-                        if (!initialLayoutComplete) {
-                            initialLayoutComplete = true;
-                            loadBanner();
-                        }
-                    }
-                });
-
         relativeContainer = view.findViewById(R.id.relativeContainer);
-        countdownText = view.findViewById(R.id.countdownText);
-        closebutton = view.findViewById(R.id.closebutton);
         moreMovieView = view.findViewById(R.id.recyclerEpisodes2);
-        space1btn = view.findViewById(R.id.space1);
-        space1btn.setOnClickListener(v -> startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://t.me/nfgplusadmin"))));
         saweria = view.findViewById(R.id.downloadButton2);
         paypal = view.findViewById(R.id.changeSourceButton2);
         dana = view.findViewById(R.id.addToListButton2);
         spay = view.findViewById(R.id.shareButton2);
+        template = view.findViewById(R.id.my_template);
+        loadNative();
         initWidgets(view);
         loadDetails();
+    }
+
+    private void loadNative() {
+        MobileAds.initialize(mActivity);
+        AdLoader adLoader = new AdLoader.Builder(mActivity, "ca-app-pub-3940256099942544/2247696110")
+                .forNativeAd(new NativeAd.OnNativeAdLoadedListener() {
+                    @Override
+                    public void onNativeAdLoaded(NativeAd nativeAd) {
+                        NativeTemplateStyle styles = new
+                                NativeTemplateStyle.Builder().build();
+                        template.setStyles(styles);
+                        template.setNativeAd(nativeAd);
+                    }
+                })
+                .build();
+
+        adLoader.loadAd(new AdRequest.Builder().build());
 
     }
 
-    //adview
-    private void loadBanner() {
-        adView.setAdUnitId(AD_UNIT_ID);
-
-        AdSize adSize = getAdSize();
-        adView.setAdSize(adSize);
-        AdRequest adRequest =
-                new AdRequest.Builder()
-                        .build();
-
-        // Start loading the ad in the background.
-        adView.loadAd(adRequest);
-    }
-
-    // Determine the screen width (less decorations) to use for the ad width.
-    private AdSize getAdSize() {
-        // Use the context associated with the AdView or an appropriate context
-        Context context = adContainerView.getContext();
-
-        // Use the context to get the WindowManager
-        WindowManager windowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
-
-        if (windowManager == null) {
-            // Handle the case where the WindowManager cannot be obtained
-            return AdSize.BANNER; // Provide a default AdSize or handle it according to your needs
-        }
-
-        DisplayMetrics displayMetrics = new DisplayMetrics();
-        Display display = windowManager.getDefaultDisplay();
-        display.getMetrics(displayMetrics);
-
-        int adWidthPixels = adContainerView.getWidth();
-
-        // If the ad hasn't been laid out, default to the full screen width.
-        if (adWidthPixels == 0) {
-            adWidthPixels = displayMetrics.widthPixels;
-        }
-
-        float density = context.getResources().getDisplayMetrics().density;
-        int adWidth = (int) (adWidthPixels / density);
-
-        return AdSize.getCurrentOrientationAnchoredAdaptiveBannerAdSize(context, adWidth);
-    }
-
-    private void showAdForThreeSeconds() {
-        countdownText.setVisibility(View.VISIBLE);
-        // Start countdown from 3 seconds
-        new CountDownTimer(10000, 1000) {
-            public void onTick(long millisUntilFinished) {
-                // Update countdown text
-                int secondsLeft = (int) (millisUntilFinished / 1000);
-                countdownText.setText(String.valueOf(secondsLeft));
-            }
-
-            public void onFinish() {
-                // Hide countdown text, hide ad, and show content
-                countdownText.setVisibility(View.GONE);
-
-                closebutton.setVisibility(View.VISIBLE);
-
-            }
-        }.start();
-        closebutton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                relativeContainer.setVisibility(View.VISIBLE);
-                iklanContainer.setVisibility(View.GONE);
-                closebutton.setVisibility(View.GONE);
-
-            }
-        });
-
-    }
 
     private void initWidgets(View view) {
-//        blurView = view.findViewById(R.id.blurView4);
-//        decorView =  ((Activity) mActivity).getWindow().getDecorView();
-//        rootView = decorView.findViewById(android.R.id.content);
-//
-
-
         titleText = view.findViewById(R.id.title_text);
         logo = view.findViewById(R.id.movieLogo);
         yearText = view.findViewById(R.id.year_text);
         runtime = view.findViewById(R.id.RuntimeText);
-//        size = view.findViewById(R.id.size);
         overview = view.findViewById(R.id.overviewdesc);
-//        poster = view.findViewById(R.id.moviePosterInDetails);
         backdrop = view.findViewById(R.id.movieBackdrop);
-
         director = view.findViewById(R.id.Director);
         writer = view.findViewById(R.id.WrittenBy);
         genres = view.findViewById(R.id.Genres);
@@ -317,9 +236,6 @@ public class MovieDetailsFragment extends BaseFragment{
         ratings = view.findViewById(R.id.ratings);
         dot1 = view.findViewById(R.id.dot);
         ratingsText = view.findViewById(R.id.ratingsText);
-
-
-
         play = view.findViewById(R.id.play);
         download = view.findViewById(R.id.downloadButton);
         shareButton = view.findViewById(R.id.shareButton);
@@ -327,7 +243,6 @@ public class MovieDetailsFragment extends BaseFragment{
         changeSource = view.findViewById(R.id.changeSourceButton);
 //        changeTMDB = view.findViewById(R.id.changeTMDBId);
 
-//        blurView = view.findViewById(R.id.blurView4);
 
     }
 

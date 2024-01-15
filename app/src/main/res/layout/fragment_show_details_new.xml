@@ -280,139 +280,11 @@
                         android:textSize="14sp"
                         android:visibility="visible"
                         tools:text="In the 22nd century, a paraplegic Marine is dispatched to the moon Pandora on a unique mission, but becomes torn between following orders and protecting an alien civilization." />
-
-                    <!--                    <TableLayout-->
-                    <!--                        android:id="@+id/detailsTable"-->
-                    <!--                        android:layout_width="match_parent"-->
-                    <!--                        android:layout_height="wrap_content"-->
-                    <!--                        android:layout_marginTop="15dp"-->
-                    <!--                        android:visibility="gone">-->
-
-                    <!--                        <TableRow-->
-                    <!--                            android:id="@+id/Director"-->
-                    <!--                            android:padding="5dp"-->
-                    <!--                            android:visibility="visible">-->
-
-                    <!--                            <TextView-->
-                    <!--                                android:layout_width="0dp"-->
-                    <!--                                android:layout_height="wrap_content"-->
-                    <!--                                android:layout_weight=".4"-->
-                    <!--                                android:fontFamily="@font/jost_regular"-->
-                    <!--                                android:text="Director :"-->
-                    <!--                                android:textColor="@color/white"-->
-                    <!--                                android:textSize="14sp" />-->
-
-                    <!--                            <TextView-->
-                    <!--                                android:id="@+id/DirectorText"-->
-                    <!--                                android:layout_width="0dp"-->
-                    <!--                                android:layout_height="wrap_content"-->
-                    <!--                                android:layout_weight=".6"-->
-                    <!--                                android:fontFamily="@font/jost_regular"-->
-                    <!--                                android:textColor="@color/white"-->
-                    <!--                                android:textSize="14sp" />-->
-
-                    <!--                        </TableRow>-->
-
-                    <!--                        <TableRow-->
-                    <!--                            android:id="@+id/WrittenBy"-->
-                    <!--                            android:padding="5dp"-->
-                    <!--                            android:visibility="visible">-->
-
-                    <!--                            <TextView-->
-                    <!--                                android:layout_width="0dp"-->
-                    <!--                                android:layout_height="wrap_content"-->
-                    <!--                                android:layout_weight=".4"-->
-                    <!--                                android:fontFamily="@font/jost_regular"-->
-                    <!--                                android:text="Written By :"-->
-                    <!--                                android:textColor="@color/white"-->
-                    <!--                                android:textSize="14sp" />-->
-
-                    <!--                            <TextView-->
-                    <!--                                android:id="@+id/WrittenByText"-->
-                    <!--                                android:layout_width="0dp"-->
-                    <!--                                android:layout_height="wrap_content"-->
-                    <!--                                android:layout_weight=".6"-->
-
-                    <!--                                android:fontFamily="@font/jost_regular"-->
-                    <!--                                android:textColor="@color/white"-->
-                    <!--                                android:textSize="14sp" />-->
-
-
-                    <!--                        </TableRow>-->
-
-                    <!--                        <TableRow-->
-                    <!--                            android:id="@+id/Genres"-->
-                    <!--                            android:padding="5dp"-->
-                    <!--                            android:visibility="visible">-->
-
-                    <!--                            <TextView-->
-                    <!--                                android:layout_width="0dp"-->
-                    <!--                                android:layout_height="wrap_content"-->
-                    <!--                                android:layout_weight=".4"-->
-                    <!--                                android:fontFamily="@font/jost_regular"-->
-                    <!--                                android:text="Genres :"-->
-                    <!--                                android:textColor="@color/white"-->
-                    <!--                                android:textSize="14sp" />-->
-
-                    <!--                            &lt;!&ndash;                    <TextView&ndash;&gt;-->
-                    <!--                            &lt;!&ndash;                        android:id="@+id/GenresText"&ndash;&gt;-->
-                    <!--                            &lt;!&ndash;                        android:layout_width="0dp"&ndash;&gt;-->
-                    <!--                            &lt;!&ndash;                        android:layout_height="wrap_content"&ndash;&gt;-->
-                    <!--                            &lt;!&ndash;                        android:layout_weight=".6"&ndash;&gt;-->
-                    <!--                            &lt;!&ndash;                        android:fontFamily="@font/jost_regular"&ndash;&gt;-->
-                    <!--                            &lt;!&ndash;                        android:textColor="@color/white"&ndash;&gt;-->
-                    <!--                            &lt;!&ndash;                        android:textSize="14sp" />&ndash;&gt;-->
-
-                    <!--                        </TableRow>-->
-
-                    <!--                        &lt;!&ndash;                <TableRow&ndash;&gt;-->
-                    <!--                        &lt;!&ndash;                    android:padding="5dp">&ndash;&gt;-->
-                    <!--                        &lt;!&ndash;                    <TextView&ndash;&gt;-->
-                    <!--                        &lt;!&ndash;                    android:id="@+id/Budget"&ndash;&gt;-->
-                    <!--                        &lt;!&ndash;                    android:layout_width="wrap_content"&ndash;&gt;-->
-                    <!--                        &lt;!&ndash;                    android:layout_height="wrap_content"&ndash;&gt;-->
-                    <!--                        &lt;!&ndash;                    android:layout_below="@id/videoQualityText"&ndash;&gt;-->
-                    <!--                        &lt;!&ndash;                    android:fontFamily="@font/jost_regular"&ndash;&gt;-->
-                    <!--                        &lt;!&ndash;                    android:textColor="@color/white"&ndash;&gt;-->
-                    <!--                        &lt;!&ndash;                    android:textSize="14sp"&ndash;&gt;-->
-                    <!--                        &lt;!&ndash;                    tools:text="Budget :" />&ndash;&gt;-->
-                    <!--                        &lt;!&ndash;                    <TextView&ndash;&gt;-->
-                    <!--                        &lt;!&ndash;                        android:id="@+id/BudgetText"&ndash;&gt;-->
-                    <!--                        &lt;!&ndash;                        android:layout_width="wrap_content"&ndash;&gt;-->
-                    <!--                        &lt;!&ndash;                        android:layout_height="wrap_content"&ndash;&gt;-->
-                    <!--                        &lt;!&ndash;                        android:layout_below="@id/videoQualityText"&ndash;&gt;-->
-                    <!--                        &lt;!&ndash;                        android:layout_toEndOf="@id/Budget"&ndash;&gt;-->
-                    <!--                        &lt;!&ndash;                        android:fontFamily="@font/jost_regular"&ndash;&gt;-->
-                    <!--                        &lt;!&ndash;                        android:textColor="@color/white"&ndash;&gt;-->
-                    <!--                        &lt;!&ndash;                        android:textSize="14sp"&ndash;&gt;-->
-                    <!--                        &lt;!&ndash;                        tools:text="THE DIRECTOR" />&ndash;&gt;-->
-                    <!--                        &lt;!&ndash;                </TableRow>&ndash;&gt;-->
-                    <!--                        &lt;!&ndash;                <TableRow&ndash;&gt;-->
-                    <!--                        &lt;!&ndash;                    android:padding="5dp">&ndash;&gt;-->
-                    <!--                        &lt;!&ndash;                    <TextView&ndash;&gt;-->
-                    <!--                        &lt;!&ndash;                        android:id="@+id/Revenue"&ndash;&gt;-->
-                    <!--                        &lt;!&ndash;                        android:layout_width="wrap_content"&ndash;&gt;-->
-                    <!--                        &lt;!&ndash;                        android:layout_height="wrap_content"&ndash;&gt;-->
-                    <!--                        &lt;!&ndash;                        android:layout_below="@id/Budget"&ndash;&gt;-->
-                    <!--                        &lt;!&ndash;                        android:fontFamily="@font/jost_regular"&ndash;&gt;-->
-                    <!--                        &lt;!&ndash;                        android:textColor="@color/white"&ndash;&gt;-->
-                    <!--                        &lt;!&ndash;                        android:textSize="14sp"&ndash;&gt;-->
-                    <!--                        &lt;!&ndash;                        tools:text="Revenue :" />&ndash;&gt;-->
-
-                    <!--                        &lt;!&ndash;                    <TextView&ndash;&gt;-->
-                    <!--                        &lt;!&ndash;                        android:id="@+id/RevenueText"&ndash;&gt;-->
-                    <!--                        &lt;!&ndash;                        android:layout_width="wrap_content"&ndash;&gt;-->
-                    <!--                        &lt;!&ndash;                        android:layout_height="wrap_content"&ndash;&gt;-->
-                    <!--                        &lt;!&ndash;                        android:layout_below="@id/Budget"&ndash;&gt;-->
-                    <!--                        &lt;!&ndash;                        android:layout_toEndOf="@id/Revenue"&ndash;&gt;-->
-                    <!--                        &lt;!&ndash;                        android:fontFamily="@font/jost_regular"&ndash;&gt;-->
-                    <!--                        &lt;!&ndash;                        android:textColor="@color/white"&ndash;&gt;-->
-                    <!--                        &lt;!&ndash;                        android:textSize="14sp"&ndash;&gt;-->
-                    <!--                        &lt;!&ndash;                        tools:text="THE DIRECTOR" />&ndash;&gt;-->
-                    <!--                        &lt;!&ndash;                </TableRow>&ndash;&gt;-->
-
-                    <!--                    </TableLayout>-->
-
+                    <com.google.android.ads.nativetemplates.TemplateView
+                        android:id="@+id/my_template"
+                        app:gnt_template_type="@layout/gnt_medium_template_view"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:id="@+id/imageButtonContainer"
                         android:layout_width="match_parent"
@@ -510,6 +382,199 @@
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
+                    <TextView
+                        android:id="@+id/moremoviestitle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/jost_medium"
+                        android:text="@string/donate_a_coffee"
+                        android:textColor="@color/white"
+                        android:background="@color/gnt_blue"
+                        android:textSize="18sp"
+                        android:visibility="visible"/>
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/gnt_blue">
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:id="@+id/imageButtonContainer2"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@color/black85"
+                            >
+                            <ImageButton
+                                android:visibility="visible"
+                                android:id="@+id/addToListButton2"
+                                android:layout_width="50dp"
+                                android:layout_height="50dp"
+                                app:layout_constraintStart_toStartOf="parent"
+                                android:layout_toStartOf="@id/downloadButton2"
+                                android:layout_toEndOf="@id/changeSourceButton2"
+                                android:clickable="true"
+                                android:backgroundTint="@color/download_button_bg_color"
+
+                                android:focusable="true"
+                                android:nextFocusRight="@id/downloadButton2"
+                                android:nextFocusDown="@id/downloadButton2"
+                                android:scaleType="centerInside"
+                                android:src="@drawable/dana"
+                                android:background="@color/transparent"
+                                app:layout_constraintStart_toEndOf="@id/downloadButton2"
+                                app:layout_constraintBottom_toTopOf="@id/addToListText2"
+                                app:layout_constraintEnd_toStartOf="@+id/downloadButton2"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <TextView
+                                android:id="@+id/addToListText2"
+                                style="@style/sizelabel"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:ellipsize="end"
+                                android:fontFamily="@font/jost_regular"
+                                android:gravity="start"
+                                android:maxLines="1"
+                                android:layout_marginVertical="8dp"
+                                app:layout_constraintTop_toBottomOf="@id/addToListButton2"
+                                app:layout_constraintEnd_toEndOf="@id/addToListButton2"
+                                app:layout_constraintStart_toStartOf="@id/addToListButton2"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                android:scrollHorizontally="true"
+                                android:text="Dana"
+                                android:textColor="#CCCCCC"
+                                android:textSize="14sp"
+                                android:visibility="visible" />
+
+
+                            <ImageButton
+                                android:id="@+id/downloadButton2"
+                                android:layout_width="50dp"
+                                android:layout_height="50dp"
+                                android:layout_alignParentEnd="true"
+                                android:background="@color/transparent"
+                                android:clickable="true"
+                                android:focusable="true"
+                                android:backgroundTint="@color/download_button_bg_color"
+                                android:nextFocusLeft="@id/addToListButton2"
+                                android:nextFocusRight="@id/changeSourceButton2"
+                                android:nextFocusUp="@id/addToListButton2"
+                                android:nextFocusDown="@id/changeSourceButton2"
+                                android:scaleType="centerInside"
+                                android:src="@drawable/saweria"
+                                app:layout_constraintBottom_toTopOf="@id/downloadText2"
+                                app:layout_constraintEnd_toEndOf="@id/addToListButton2"
+                                app:layout_constraintStart_toStartOf="@id/changeSourceButton2"
+                                app:layout_constraintTop_toTopOf="parent"
+                                />
+
+                            <TextView
+                                android:id="@+id/downloadText2"
+                                style="@style/sizelabel"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:ellipsize="end"
+                                android:fontFamily="@font/jost_regular"
+                                android:gravity="start"
+                                android:maxLines="1"
+                                android:layout_marginVertical="8dp"
+                                app:layout_constraintTop_toBottomOf="@id/downloadButton2"
+                                app:layout_constraintEnd_toEndOf="@id/downloadButton2"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintStart_toStartOf="@id/downloadButton2"
+                                android:scrollHorizontally="true"
+                                android:text="Saweria"
+                                android:textColor="#CCCCCC"
+                                android:textSize="14sp"
+                                android:visibility="visible" />
+
+                            <ImageButton
+                                android:id="@+id/changeSourceButton2"
+                                android:layout_width="50dp"
+                                android:layout_height="50dp"
+                                android:layout_alignParentStart="true"
+                                android:background="@drawable/play_shape"
+                                android:clickable="true"
+                                app:layout_constraintEnd_toStartOf="@id/shareButton2"
+                                android:contentDescription="Paypal"
+                                android:focusable="true"
+                                android:nextFocusLeft="@id/downloadButton2"
+                                android:nextFocusUp="@id/downloadButton2"
+                                android:nextFocusRight="@id/shareButton2"
+                                android:nextFocusDown="@id/shareButton2"
+                                android:scaleType="centerInside"
+                                android:backgroundTint="@color/transparent"
+                                android:src="@drawable/paypal"
+                                app:layout_constraintBottom_toTopOf="@id/sourceText2"
+                                app:layout_constraintHorizontal_bias="0.5"
+                                app:layout_constraintHorizontal_chainStyle="packed"
+                                app:layout_constraintStart_toEndOf="@id/downloadButton2"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+
+                            <TextView
+                                android:id="@+id/sourceText2"
+                                style="@style/sizelabel"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:ellipsize="end"
+                                android:fontFamily="@font/jost_regular"
+                                android:gravity="start"
+                                android:maxLines="1"
+                                android:layout_marginVertical="8dp"
+                                app:layout_constraintTop_toBottomOf="@id/changeSourceButton2"
+                                app:layout_constraintEnd_toEndOf="@id/changeSourceButton2"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintStart_toStartOf="@id/changeSourceButton2"
+                                android:scrollHorizontally="true"
+                                android:text="Paypal"
+                                android:textColor="#CCCCCC"
+                                android:textSize="14sp"
+                                android:visibility="visible" />
+                            <ImageButton
+                                android:visibility="visible"
+                                android:id="@+id/shareButton2"
+                                android:layout_width="80dp"
+                                android:layout_height="80dp"
+                                android:layout_alignParentStart="true"
+                                android:background="@color/transparent"
+                                android:clickable="true"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                android:focusable="true"
+                                android:nextFocusLeft="@id/changeSourceButton2"
+                                android:nextFocusUp="@id/changeSourceButton2"
+                                android:scaleType="centerInside"
+                                android:backgroundTint="@color/download_button_bg_color"
+                                android:src="@drawable/shopeepay"
+                                app:layout_constraintBottom_toTopOf="@id/shareText2"
+                                app:layout_constraintHorizontal_bias="0.5"
+                                app:layout_constraintHorizontal_chainStyle="packed"
+                                app:layout_constraintStart_toStartOf="@id/changeSourceButton2"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+
+                            <TextView
+                                android:id="@+id/shareText2"
+                                style="@style/sizelabel"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:ellipsize="end"
+                                android:fontFamily="@font/jost_regular"
+                                android:gravity="start"
+                                android:maxLines="1"
+                                android:layout_marginVertical="8dp"
+                                app:layout_constraintTop_toBottomOf="@id/shareButton2"
+                                app:layout_constraintEnd_toEndOf="@id/shareButton2"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintStart_toStartOf="@id/shareButton2"
+                                android:scrollHorizontally="true"
+                                android:text="Share"
+                                android:textColor="#CCCCCC"
+                                android:textSize="14sp"
+                                android:visibility="invisible" />
+                            <!--                    android:background="@drawable/tab_bg_color"-->
+
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+                    </RelativeLayout>
                     <TextView
                         android:id="@+id/SeasonRecyclerTitle"
                         android:layout_width="match_parent"

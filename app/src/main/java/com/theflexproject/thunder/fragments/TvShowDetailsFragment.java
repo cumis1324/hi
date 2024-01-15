@@ -30,6 +30,12 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.Target;
+import com.google.android.ads.nativetemplates.NativeTemplateStyle;
+import com.google.android.ads.nativetemplates.TemplateView;
+import com.google.android.gms.ads.AdLoader;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.nativead.NativeAd;
 import com.theflexproject.thunder.R;
 import com.theflexproject.thunder.adapter.MediaAdapter;
 import com.theflexproject.thunder.database.DatabaseClient;
@@ -90,7 +96,11 @@ public class TvShowDetailsFragment extends BaseFragment {
     MediaAdapter.OnItemClickListener listenerSeasonItem;
 
     Episode nextEpisode;
-
+    private ImageButton saweria;
+    private ImageButton paypal;
+    private ImageButton dana;
+    private ImageButton spay;
+    private TemplateView template;
 
     public TvShowDetailsFragment() {
         // Required empty public constructor
@@ -109,42 +119,48 @@ public class TvShowDetailsFragment extends BaseFragment {
     @Override
     public void onViewCreated(@NonNull View view , @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view , savedInstanceState);
-
+        saweria = view.findViewById(R.id.downloadButton2);
+        paypal = view.findViewById(R.id.changeSourceButton2);
+        dana = view.findViewById(R.id.addToListButton2);
+        spay = view.findViewById(R.id.shareButton2);
+        template = view.findViewById(R.id.my_template);
+        loadNative();
         initWidgets(view);
         loadDetails();
     }
+    private void loadNative() {
+        MobileAds.initialize(mActivity);
+        AdLoader adLoader = new AdLoader.Builder(mActivity, "ca-app-pub-3940256099942544/2247696110")
+                .forNativeAd(new NativeAd.OnNativeAdLoadedListener() {
+                    @Override
+                    public void onNativeAdLoaded(NativeAd nativeAd) {
+                        NativeTemplateStyle styles = new
+                                NativeTemplateStyle.Builder().build();
+                        template.setStyles(styles);
+                        template.setNativeAd(nativeAd);
+                    }
+                })
+                .build();
 
+        adLoader.loadAd(new AdRequest.Builder().build());
+
+    }
     private void initWidgets(View view) {
         tvShowTitleText = view.findViewById(R.id.tvShowTitle);
         logo = view.findViewById(R.id.tvLogo);
         numberOfSeasons = view.findViewById(R.id.noOfSeasons);
         numberOfEpisodes = view.findViewById(R.id.noOfEpisodes);
         overview = view.findViewById(R.id.overviewDescTVShow);
-//        poster = view.findViewById(R.id.tvShowPosterInDetails);
         backdrop = view.findViewById(R.id.tvShowBackdrop);
-
-//        //TableRows that do not change
-//        type = view.findViewById(R.id.tvShowType);
-//        status = view.findViewById(R.id.tvShowStatus);
-//        genres = view.findViewById(R.id.tvShowGenres);
-
-        //TextViews that change
-//        statusText = view.findViewById(R.id.tvShowStatusText);
-//        typeText = view.findViewById(R.id.tvShowtypeText);
         genresText = view.findViewById(R.id.tvShowGenresText);
         continueWatching = view.findViewById(R.id.continueWatchingText);
         dot3 = view.findViewById(R.id.dot3);
         dot1 = view.findViewById(R.id.dot);
         episodeTitle = view.findViewById(R.id.episodeNameInTv);
-//        ratings = view.findViewById(R.id.ratingsTV);
         ratingsText = view.findViewById(R.id.ratingsTVText);
-
         play = view.findViewById(R.id.playInTVShowDetails);
         changeTMDB = view.findViewById(R.id.changeShowTMDBId);
         addToList = view.findViewById(R.id.addToListButtonTV);
-
-
-
 
     }
 
@@ -299,19 +315,6 @@ public class TvShowDetailsFragment extends BaseFragment {
                         .tvShowSeasonDetailsDao()
                         .findByShowId(tvShowDetails.getId());
 
-//                List<TVShowSeasonDetails> emptySeasons = new ArrayList<>();
-//                for(TVShowSeasonDetails season : seasonsList) {
-//                    List<Episode> episodeList = DatabaseClient
-//                            .getInstance(mActivity)
-//                            .getAppDatabase()
-//                            .episodeDao()
-//                            .getFromThisSeason(tvShowDetails.getId(),season.getId());
-//                    if(episodeList==null || episodeList.size()==0){
-//                        emptySeasons.add(season);
-//                        DatabaseClient.getInstance(mActivity).getAppDatabase().tvShowSeasonDetailsDao().deleteById(season.getId());
-//                    }
-//                }
-//                seasonsList.removeAll(emptySeasons);
                 mActivity.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
@@ -374,7 +377,10 @@ public class TvShowDetailsFragment extends BaseFragment {
                 thread.start();
             }
         });
-
+        spay.setOnClickListener(v -> startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://sppay.shopee.co.id/qr/00ccc6eccf9a0f4cc900"))));
+        dana.setOnClickListener(v -> startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://link.dana.id/qr/685glq8"))));
+        saweria.setOnClickListener(v -> startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://saweria.co/nfgplus"))));
+        paypal.setOnClickListener(v -> startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.paypal.com/paypalme/nfgplus?country.x=ID&locale.x=en_US"))));
         addToList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
