@@ -27,6 +27,12 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.Target;
+import com.google.android.ads.nativetemplates.NativeTemplateStyle;
+import com.google.android.ads.nativetemplates.TemplateView;
+import com.google.android.gms.ads.AdLoader;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.nativead.NativeAd;
 import com.theflexproject.thunder.R;
 import com.theflexproject.thunder.adapter.EpisodeAdapter;
 import com.theflexproject.thunder.adapter.ScaleCenterItemLayoutManager;
@@ -70,6 +76,7 @@ public class SeasonDetailsFragment extends BaseFragment {
     List<Episode> episodes;
 
     Episode nextEpisode;
+    private TemplateView template;
 
 
     public SeasonDetailsFragment() {
@@ -98,9 +105,27 @@ public class SeasonDetailsFragment extends BaseFragment {
     @Override
     public void onViewCreated(@NonNull View view , @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view , savedInstanceState);
-
+        template = view.findViewById(R.id.my_template);
+        loadNative();
         initWidgets(view);
         loadDetails();
+
+    }
+    private void loadNative() {
+        MobileAds.initialize(mActivity);
+        AdLoader adLoader = new AdLoader.Builder(mActivity, "ca-app-pub-3940256099942544/2247696110")
+                .forNativeAd(new NativeAd.OnNativeAdLoadedListener() {
+                    @Override
+                    public void onNativeAdLoaded(NativeAd nativeAd) {
+                        NativeTemplateStyle styles = new
+                                NativeTemplateStyle.Builder().build();
+                        template.setStyles(styles);
+                        template.setNativeAd(nativeAd);
+                    }
+                })
+                .build();
+
+        adLoader.loadAd(new AdRequest.Builder().build());
 
     }
 
