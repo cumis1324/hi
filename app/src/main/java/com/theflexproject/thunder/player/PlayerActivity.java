@@ -1,6 +1,5 @@
 package com.theflexproject.thunder.player;
 
-import static android.content.ContentValues.TAG;
 
 import android.app.PictureInPictureParams;
 import android.content.Intent;
@@ -21,6 +20,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.ads.nativetemplates.NativeTemplateStyle;
+import com.google.android.ads.nativetemplates.TemplateView;
 import com.google.android.exoplayer2.C;
 import com.google.android.exoplayer2.ExoPlayer;
 import com.google.android.exoplayer2.MediaItem;
@@ -36,17 +37,11 @@ import com.google.android.exoplayer2.ui.StyledPlayerControlView;
 import com.google.android.exoplayer2.ui.StyledPlayerView;
 import com.google.android.exoplayer2.upstream.DataSource;
 import com.google.android.exoplayer2.util.EventLogger;
-import com.google.android.gms.ads.AdError;
 import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.FullScreenContentCallback;
 import com.google.android.gms.ads.LoadAdError;
 import com.google.android.gms.ads.MobileAds;
-import com.google.android.gms.ads.OnUserEarnedRewardListener;
-import com.google.android.gms.ads.initialization.InitializationStatus;
-import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
-import com.google.android.gms.ads.rewarded.RewardItem;
-import com.google.android.gms.ads.rewarded.RewardedAd;
-import com.google.android.gms.ads.rewarded.RewardedAdLoadCallback;
+import com.google.android.gms.ads.interstitial.InterstitialAd;
+import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback;
 import com.google.android.gms.ads.rewardedinterstitial.RewardedInterstitialAd;
 import com.google.android.gms.ads.rewardedinterstitial.RewardedInterstitialAdLoadCallback;
 import com.theflexproject.thunder.R;
@@ -78,7 +73,9 @@ public class PlayerActivity extends AppCompatActivity implements View.OnClickLis
     private ImageButton buttonAspectRatio;
     int uiOptions;
     View decorView;
-    private RewardedInterstitialAd rewardedInterstitialAd;
+    private InterstitialAd mInterstitialAd;
+    private String TAG = "PlayerActivity";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -123,63 +120,10 @@ public class PlayerActivity extends AppCompatActivity implements View.OnClickLis
             clearStartPosition();
         }
 
-      loadAd();
-
     }
 
-    public void loadAd() {
-        // Use the test ad unit ID to load an ad.
-        MobileAds.initialize(this);
-        RewardedInterstitialAd.load(PlayerActivity.this, "ca-app-pub-7142401354409440/8787580101",
-                new AdRequest.Builder().build(),  new RewardedInterstitialAdLoadCallback() {
-                    @Override
-                    public void onAdLoaded(RewardedInterstitialAd ad) {
-                        Log.d(TAG, "Ad was loaded.");
-                        rewardedInterstitialAd = ad;
-                        rewardedInterstitialAd.setFullScreenContentCallback(new FullScreenContentCallback() {
-                            @Override
-                            public void onAdClicked() {
-                                // Called when a click is recorded for an ad.
-                                Log.d(TAG, "Ad was clicked.");
-                            }
 
-                            @Override
-                            public void onAdDismissedFullScreenContent() {
-                                // Called when ad is dismissed.
-                                // Set the ad reference to null so you don't show the ad a second time.
-                                Log.d(TAG, "Ad dismissed fullscreen content.");
-                                rewardedInterstitialAd = null;
-                            }
 
-                            @Override
-                            public void onAdFailedToShowFullScreenContent(AdError adError) {
-                                // Called when ad fails to show.
-                                Log.e(TAG, "Ad failed to show fullscreen content.");
-                                rewardedInterstitialAd = null;
-                            }
-
-                            @Override
-                            public void onAdImpression() {
-                                // Called when an impression is recorded for an ad.
-                                Log.d(TAG, "Ad recorded an impression.");
-                            }
-
-                            @Override
-                            public void onAdShowedFullScreenContent() {
-                                // Called when ad is shown.
-                                Log.d(TAG, "Ad showed fullscreen content.");
-                            }
-                        });
-                    }
-                    @Override
-                    public void onAdFailedToLoad(LoadAdError loadAdError) {
-                        Log.d(TAG, loadAdError.toString());
-                        rewardedInterstitialAd = null;
-                        Log.d("AdMob", "Ad failed to load: " + loadAdError.getCode());
-                        Log.e("AdMob", "Ad failed to load: " + loadAdError.getMessage());
-                    }
-                });
-    }
 
     @Override
     public void onNewIntent(Intent intent) {
@@ -189,25 +133,12 @@ public class PlayerActivity extends AppCompatActivity implements View.OnClickLis
         clearStartPosition();
         setIntent(intent);
     }
-    private void showRewardedInterstitialAd() {
-        if (rewardedInterstitialAd != null) {
-            rewardedInterstitialAd.show(this, rewardItem -> {
-                // Handle reward completion
-                Log.d("AdMob", "User earned reward");
-                // Resume your playback or take any other action here
-            });
-        } else {
-            Log.d("AdMob", "Rewarded interstitial ad is not ready yet");
-            // Resume your playback or take any other action here
-        }
-    }
 
     @Override
     public void onStart() {
         super.onStart();
         if (Build.VERSION.SDK_INT > 23) {
             initializePlayer();
-            showRewardedInterstitialAd();
             if (playerView != null) {
                 playerView.onResume();
             }

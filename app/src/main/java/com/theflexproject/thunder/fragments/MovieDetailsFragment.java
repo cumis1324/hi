@@ -1,14 +1,22 @@
 package com.theflexproject.thunder.fragments;
 
+import static android.content.ContentValues.TAG;
 import static android.content.Context.DOWNLOAD_SERVICE;
 import static com.theflexproject.thunder.Constants.TMDB_BACKDROP_IMAGE_BASE_URL;
 import static com.theflexproject.thunder.fragments.EpisodeDetailsFragment.REQUEST_WRITE_EXTERNAL_STORAGE_PERMISSION;
 
 import com.google.android.ads.nativetemplates.NativeTemplateStyle;
 import com.google.android.ads.nativetemplates.TemplateView;
+import com.google.android.gms.ads.AdError;
 import com.google.android.gms.ads.AdLoader;
+import com.google.android.gms.ads.FullScreenContentCallback;
+import com.google.android.gms.ads.LoadAdError;
 import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.interstitial.InterstitialAd;
+import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback;
 import com.google.android.gms.ads.nativead.NativeAd;
+import com.google.android.gms.ads.rewardedinterstitial.RewardedInterstitialAd;
+import com.google.android.gms.ads.rewardedinterstitial.RewardedInterstitialAdLoadCallback;
 import com.google.firebase.dynamiclinks.DynamicLink;
 import com.google.firebase.dynamiclinks.FirebaseDynamicLinks;
 
@@ -158,6 +166,7 @@ public class MovieDetailsFragment extends BaseFragment{
     private ImageButton dana;
     private ImageButton spay;
     private TemplateView template;
+    private InterstitialAd mInterstitialAd;
 
 
 
@@ -196,13 +205,108 @@ public class MovieDetailsFragment extends BaseFragment{
         dana = view.findViewById(R.id.addToListButton2);
         spay = view.findViewById(R.id.shareButton2);
         template = view.findViewById(R.id.my_template);
+        MobileAds.initialize(mActivity);
         loadNative();
         initWidgets(view);
         loadDetails();
     }
+    private void loadAds(){
+        AdRequest adRequest = new AdRequest.Builder().build();
 
+        InterstitialAd.load(mActivity,"ca-app-pub-7142401354409440/5207281951", adRequest,
+                new InterstitialAdLoadCallback() {
+                    @Override
+                    public void onAdLoaded(@NonNull InterstitialAd interstitialAd) {
+                        // The mInterstitialAd reference will be null until
+                        // an ad is loaded.
+                        mInterstitialAd = interstitialAd;
+                        Log.i(TAG, "onAdLoaded");
+                    }
+
+                    @Override
+                    public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
+                        // Handle the error
+                        Log.d(TAG, loadAdError.toString());
+                        mInterstitialAd = null;
+                        if (selectedFile != null) {
+                            addToLastPlayed();
+                            Intent in = new Intent(getActivity(), PlayerActivity.class);
+                            in.putExtra("url", selectedFile.getUrlString());
+                            startActivity(in);
+                            Toast.makeText(getContext(), "Playing " + movieDetails.getTitle(), Toast.LENGTH_LONG).show();
+                        } else {
+                            addToLastPlayed();
+                            Intent in = new Intent(getActivity(), PlayerActivity.class);
+                            in.putExtra("url", movieDetails.getUrlString());
+                            startActivity(in);
+                            Toast.makeText(getContext(), "Playing " + movieDetails.getTitle(), Toast.LENGTH_LONG).show();
+                        }
+                    }
+                });
+        mInterstitialAd.setFullScreenContentCallback(new FullScreenContentCallback(){
+            @Override
+            public void onAdClicked() {
+                // Called when a click is recorded for an ad.
+                Log.d(TAG, "Ad was clicked.");
+            }
+
+            @Override
+            public void onAdDismissedFullScreenContent() {
+                // Called when ad is dismissed.
+                // Set the ad reference to null so you don't show the ad a second time.
+                Log.d(TAG, "Ad dismissed fullscreen content.");
+                mInterstitialAd = null;
+                if (selectedFile != null) {
+                    addToLastPlayed();
+                    Intent in = new Intent(getActivity(), PlayerActivity.class);
+                    in.putExtra("url", selectedFile.getUrlString());
+                    startActivity(in);
+                    Toast.makeText(getContext(), "Playing " + movieDetails.getTitle(), Toast.LENGTH_LONG).show();
+                } else {
+                    addToLastPlayed();
+                    Intent in = new Intent(getActivity(), PlayerActivity.class);
+                    in.putExtra("url", movieDetails.getUrlString());
+                    startActivity(in);
+                    Toast.makeText(getContext(), "Playing " + movieDetails.getTitle(), Toast.LENGTH_LONG).show();
+                }
+            }
+
+            @Override
+            public void onAdFailedToShowFullScreenContent(AdError adError) {
+                // Called when ad fails to show.
+                Log.e(TAG, "Ad failed to show fullscreen content.");
+                mInterstitialAd = null;
+                if (selectedFile != null) {
+                    addToLastPlayed();
+                    Intent in = new Intent(getActivity(), PlayerActivity.class);
+                    in.putExtra("url", selectedFile.getUrlString());
+                    startActivity(in);
+                    Toast.makeText(getContext(), "Playing " + movieDetails.getTitle(), Toast.LENGTH_LONG).show();
+                } else {
+                    addToLastPlayed();
+                    Intent in = new Intent(getActivity(), PlayerActivity.class);
+                    in.putExtra("url", movieDetails.getUrlString());
+                    startActivity(in);
+                    Toast.makeText(getContext(), "Playing " + movieDetails.getTitle(), Toast.LENGTH_LONG).show();
+                }
+            }
+
+            @Override
+            public void onAdImpression() {
+                // Called when an impression is recorded for an ad.
+                Log.d(TAG, "Ad recorded an impression.");
+            }
+
+            @Override
+            public void onAdShowedFullScreenContent() {
+                // Called when ad is shown.
+                Log.d(TAG, "Ad showed fullscreen content.");
+            }
+        });
+        mInterstitialAd.show(mActivity);
+    }
     private void loadNative() {
-        MobileAds.initialize(mActivity);
+
         AdLoader adLoader = new AdLoader.Builder(mActivity, "ca-app-pub-7142401354409440/7261340471")
                 .forNativeAd(new NativeAd.OnNativeAdLoadedListener() {
                     @Override
@@ -214,9 +318,9 @@ public class MovieDetailsFragment extends BaseFragment{
                     }
                 })
                 .build();
-
+        template.setVisibility(View.VISIBLE);
         adLoader.loadAd(new AdRequest.Builder().build());
-
+        
     }
 
 
@@ -486,19 +590,8 @@ public class MovieDetailsFragment extends BaseFragment{
                 @Override
                 public void onClick(View v) {
                     try {
-                        if (selectedFile != null) {
-                            addToLastPlayed();
-                            Intent in = new Intent(getActivity(), PlayerActivity.class);
-                            in.putExtra("url", selectedFile.getUrlString());
-                            startActivity(in);
-                            Toast.makeText(getContext(), "Playing " + movieDetails.getTitle(), Toast.LENGTH_LONG).show();
-                        } else {
-                            addToLastPlayed();
-                            Intent in = new Intent(getActivity(), PlayerActivity.class);
-                            in.putExtra("url", movieDetails.getUrlString());
-                            startActivity(in);
-                            Toast.makeText(getContext(), "Playing " + movieDetails.getTitle(), Toast.LENGTH_LONG).show();
-                        }
+                        loadAds();
+
                     }catch (Exception e){
                         e.printStackTrace();
                     }

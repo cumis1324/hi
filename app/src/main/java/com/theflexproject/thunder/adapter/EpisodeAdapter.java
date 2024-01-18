@@ -64,6 +64,8 @@ public class EpisodeAdapter extends RecyclerView.Adapter<EpisodeAdapter.EpisodeA
             Episode episode = episodeList.get(position);
             if(episode.getEpisode_number()>9){
                 holder.episodeNumber.setText("E"+episode.getEpisode_number());
+            }if(episode.getEpisode_number()>999){
+                holder.episodeNumber.setText("E"+episode.getEpisode_number());
             }else {
                 holder.episodeNumber.setText("E0"+episode.getEpisode_number());
             }
