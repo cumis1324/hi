@@ -12,7 +12,7 @@ android {
         applicationId "com.gelaskaca.nfgplus"
         minSdk 24
         targetSdk 34
-        versionCode 27
+        versionCode 28
         versionName "Saptavimsati"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
