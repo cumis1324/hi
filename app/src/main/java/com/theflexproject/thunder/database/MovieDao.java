@@ -82,7 +82,7 @@ public interface MovieDao {
     List<Movie> getAllByFileName(String fileName);
 
 
-    @Query("SELECT COUNT (title) FROM Movie WHERE index_id =:index_id AND TITLE IS NOT NULL GROUP BY TITLE")
+    @Query("SELECT COUNT (title) FROM Movie WHERE index_id =:index_id")
     int getNoOfMovies(int index_id);
 
     @Query("UPDATE Movie set disabled=1 WHERE index_id=:index_id ")
