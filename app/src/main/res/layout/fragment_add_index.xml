@@ -139,71 +139,6 @@
 
         </com.google.android.material.button.MaterialButtonToggleGroup>
 
-        <!--    <RadioGroup-->
-        <!--        android:id="@+id/rb_group"-->
-        <!--        android:layout_width="match_parent"-->
-        <!--        android:layout_height="wrap_content"-->
-        <!--        android:layout_below="@+id/textView4"-->
-        <!--        android:layout_marginTop="5dp"-->
-        <!--        android:gravity="center_horizontal"-->
-        <!--        android:orientation="horizontal"-->
-        <!--        app:layout_constraintEnd_toEndOf="parent"-->
-        <!--        app:layout_constraintHorizontal_bias="0.502"-->
-        <!--        app:layout_constraintStart_toStartOf="parent"-->
-        <!--        app:layout_constraintTop_toBottomOf="@+id/textView2">-->
-
-
-        <!--        <RadioButton-->
-        <!--            android:id="@+id/rb_gd"-->
-        <!--            android:layout_width="wrap_content"-->
-        <!--            android:layout_height="wrap_content"-->
-        <!--            android:buttonTint="@color/download_button_bg_color"-->
-        <!--            android:clickable="true"-->
-        <!--            android:focusable="true"-->
-        <!--            android:nextFocusRight="@id/rb_go"-->
-        <!--            android:fontFamily="@font/jost_regular"-->
-        <!--            android:text="GDIndex"-->
-        <!--            android:textColor="@color/white" />-->
-
-        <!--        <RadioButton-->
-        <!--            android:id="@+id/rb_go"-->
-        <!--            android:layout_width="wrap_content"-->
-        <!--            android:layout_height="wrap_content"-->
-        <!--            android:buttonTint="@color/download_button_bg_color"-->
-        <!--            android:fontFamily="@font/jost_regular"-->
-        <!--            android:text="GoIndex"-->
-        <!--            android:focusable="true"-->
-        <!--            android:nextFocusRight="@id/rb_maple"-->
-        <!--            android:clickable="true"-->
-        <!--            android:textColor="@color/white" />-->
-
-        <!--        <RadioButton-->
-        <!--            android:id="@+id/rb_maple"-->
-        <!--            android:layout_width="wrap_content"-->
-        <!--            android:layout_height="wrap_content"-->
-        <!--            android:buttonTint="@color/download_button_bg_color"-->
-        <!--            android:fontFamily="@font/jost_regular"-->
-        <!--            android:text="MapleIndex"-->
-        <!--            android:focusable="true"-->
-        <!--            android:nextFocusRight="@id/rb_simple"-->
-        <!--            android:clickable="true"-->
-        <!--            android:textColor="@color/white" />-->
-
-        <!--        <RadioButton-->
-        <!--            android:id="@+id/rb_simple"-->
-        <!--            android:layout_width="wrap_content"-->
-        <!--            android:layout_height="wrap_content"-->
-        <!--            android:buttonTint="@color/download_button_bg_color"-->
-        <!--            android:fontFamily="@font/jost_regular"-->
-        <!--            android:text="SimpleProgram"-->
-        <!--            android:focusable="true"-->
-        <!--            android:nextFocusRight="@id/rb_movies"-->
-        <!--            android:nextFocusDown="@id/rb_movies"-->
-        <!--            android:clickable="true"-->
-        <!--            android:textColor="@color/white" />-->
-
-        <!--    </RadioGroup>-->
-
         <TextView
             android:id="@+id/textView3"
             android:layout_width="90dp"
@@ -300,42 +235,6 @@
 
         </com.google.android.material.button.MaterialButtonToggleGroup>
 
-        <!--    <RadioGroup-->
-        <!--        android:id="@+id/folderTypeRadioGroup"-->
-        <!--        android:layout_width="match_parent"-->
-        <!--        android:layout_height="wrap_content"-->
-        <!--        android:layout_below="@+id/textView3"-->
-        <!--        android:layout_marginTop="5dp"-->
-        <!--        android:gravity="center_horizontal"-->
-        <!--        android:orientation="horizontal"-->
-        <!--        >-->
-
-        <!--        <RadioButton-->
-        <!--            android:id="@+id/rb_movies"-->
-        <!--            android:layout_width="wrap_content"-->
-        <!--            android:layout_height="wrap_content"-->
-        <!--            android:buttonTint="@color/download_button_bg_color"-->
-        <!--            android:fontFamily="@font/jost_regular"-->
-        <!--            android:text="Movies"-->
-        <!--            android:focusable="true"-->
-        <!--            android:clickable="true"-->
-        <!--            android:nextFocusRight="@string/tv_shows"-->
-        <!--            android:textColor="@color/white" />-->
-
-        <!--        <RadioButton-->
-        <!--            android:id="@+id/rb_TVShow"-->
-        <!--            android:layout_width="wrap_content"-->
-        <!--            android:layout_height="wrap_content"-->
-        <!--            android:buttonTint="@color/white"-->
-        <!--            android:fontFamily="@font/jost_regular"-->
-        <!--            android:text="TVShows"-->
-        <!--            android:focusable="true"-->
-        <!--            android:nextFocusDown="@id/indexlink"-->
-        <!--            android:clickable="true"-->
-        <!--            android:textColor="@color/white" />-->
-        <!--    </RadioGroup>-->
-
-
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/indexlinkContainer"
             android:layout_width="match_parent"
@@ -371,48 +270,7 @@
                 android:textSize="18sp" />
 
         </com.google.android.material.textfield.TextInputLayout>
-
-
-        <!--<com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/indexlinkContainer"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/folder_type_group"
-            android:layout_alignParentStart="true"
-            android:layout_marginTop="20dp"
-            android:gravity="center_vertical"
-            android:nextFocusUp="@id/actvContainer2"
-            android:textColorHint="#50FFFFFF"
-            android:textCursorDrawable="@null"
-            app:hintAnimationEnabled="false"
-            app:hintEnabled="false">
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/indexlink"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentEnd="true"
-                android:layout_gravity="center"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
-                android:background="@drawable/search_bg"
-                android:ems="10"
-                android:focusable="true"
-                android:fontFamily="@font/jost_regular"
-                android:gravity="start|center_vertical"
-                android:hint="@string/index_link"
-                android:inputType="textPersonName"
-                android:nextFocusUp="@id/tb_movies"
-                android:nextFocusDown="@id/username"
-                android:paddingTop="12dp"
-                android:textColor="@color/white"
-                android:textColorHint="#878787"
-                android:textColorLink="#A3A3A3"
-                android:textSize="18sp" />
-
-        </com.google.android.material.textfield.TextInputLayout>-->
-
-        <LinearLayout
+       <LinearLayout
             android:id="@+id/textContainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -631,6 +489,52 @@
                 android:padding="8dp"
                 android:visibility="gone" />
         </RelativeLayout>
+    <RelativeLayout
+        android:visibility="invisible"
+        android:id="@+id/save_container3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="80dp"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="430dp"
+        android:background="@drawable/search_bg">
+
+        <Button
+            android:id="@+id/save3"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:layout_centerHorizontal="true"
+            android:fontFamily="@font/jost_regular"
+            android:nextFocusUp="@id/password"
+            android:background="@drawable/search_bg"
+            android:text="@string/scan_now"
+            android:textColor="@color/download_button_bg_color" />
+    </RelativeLayout>
+    <RelativeLayout
+        android:visibility="invisible"
+        android:id="@+id/save_container4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="80dp"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="430dp"
+        android:background="@drawable/search_bg">
+
+        <Button
+            android:id="@+id/save4"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:layout_centerHorizontal="true"
+            android:fontFamily="@font/jost_regular"
+            android:nextFocusUp="@id/password"
+            android:background="@drawable/search_bg"
+            android:text="@string/scan_now"
+            android:textColor="@color/download_button_bg_color" />
+    </RelativeLayout>
     </RelativeLayout>
 </androidx.core.widget.NestedScrollView>
 

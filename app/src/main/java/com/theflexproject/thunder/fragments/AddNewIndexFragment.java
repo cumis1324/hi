@@ -42,6 +42,8 @@ public class AddNewIndexFragment extends BaseFragment {
     private ProgressBar progress_circular;
     private Button save2;
     private ProgressBar progress_circular2;
+    private Button save3;
+    private Button save4;
     Button scanButton;
     ProgressBar loadingScan;
     FrameLayout scanContainer;
@@ -84,7 +86,11 @@ public class AddNewIndexFragment extends BaseFragment {
             String url = "https://drive.nfgplusmirror.workers.dev/1:/Movie/";
             String demo = "https://drive.nfgplusmirror.workers.dev/1:/Demo/";
             String series = "https://drive.nfgplusmirror.workers.dev/1:/Series/";
+            String movie = "https://drive2.nfgplusmirror.workers.dev/0:/Movie/";
+            String series1 = "https://drive2.nfgplusmirror.workers.dev/0:/Series/";
             String typeSeries = "TVShows";
+            String typeMovie = "Movies";
+            String typeIndex = "GDIndex";
             indexLinkView = view.findViewById(R.id.indexlink);
             userNameView = view.findViewById(R.id.username);
             passWordView = view.findViewById(R.id.password);
@@ -92,6 +98,8 @@ public class AddNewIndexFragment extends BaseFragment {
             progress_circular = view.findViewById(R.id.progress_circular);
             save2 = view.findViewById(R.id.save2);
             progress_circular2 = view.findViewById(R.id.progress_circular2);
+            save3 = view.findViewById(R.id.save3);
+            save4 = view.findViewById(R.id.save4);
             scanButton = mActivity.findViewById(R.id.floating_scan);
             loadingScan = mActivity.findViewById(R.id.loadingScan);
             scanContainer = mActivity.findViewById(R.id.scanContainer);
@@ -119,8 +127,8 @@ public class AddNewIndexFragment extends BaseFragment {
                     indexLink.setLink(demo);
                     indexLink.setUsername(userNameView.getText().toString());
                     indexLink.setPassword(passWordView.getText().toString());
-                    indexLink.setIndexType(actv1.getText().toString());
-                    indexLink.setFolderType(actv2.getText().toString());
+                    indexLink.setIndexType(typeIndex);
+                    indexLink.setFolderType(typeMovie);
                     try {
                         if (indexLink.getLink().length() < 1) {
                             indexLinkView.setError("Invalid Link");
@@ -174,32 +182,10 @@ public class AddNewIndexFragment extends BaseFragment {
                                         if (indexType.equals("GDIndex")) {
                                             postRequestGDIndex(link, user, pass, false, index_id);
                                         }
-                                        if (indexType.equals("GoIndex")) {
-                                            postRequestGoIndex(link, user, pass, false, index_id);
-                                        }
-                                        if (indexType.equals("Maple")) {
-                                            postRequestMapleIndex(link, user, pass, false, index_id);
-                                        }
-                                        if (indexType.equals("SimpleProgram")) {
-                                            postRequestSimpleProgramIndex(link, user, pass, false, index_id);
-                                        }
+
                                     }
 
-                                    if (folderType.equals("TVShows")) {
-                                        if (indexType.equals("GDIndex")) {
-                                            postRequestGDIndex(link, user, pass, true, index_id);
-                                        }
-                                        if (indexType.equals("GoIndex")) {
-                                            postRequestGoIndex(link, user, pass, true, index_id);
-                                        }
-                                        if (indexType.equals("MapleIndex")) {
-                                            postRequestMapleIndex(link, user, pass, true, index_id);
-                                        }
-                                        if (indexType.equals("SimpleProgram")) {
-                                            postRequestSimpleProgramIndex(link, user, pass, true, index_id);
-                                        }
-                                    }
-                                    mActivity.runOnUiThread(new Runnable() {
+                                     mActivity.runOnUiThread(new Runnable() {
                                         @Override
                                         public void run() {
                                             save.setText("Done");
@@ -231,8 +217,8 @@ public class AddNewIndexFragment extends BaseFragment {
                         indexLink.setLink(url);
                         indexLink.setUsername(userNameView.getText().toString());
                         indexLink.setPassword(passWordView.getText().toString());
-                        indexLink.setIndexType(actv1.getText().toString());
-                        indexLink.setFolderType(actv2.getText().toString());
+                        indexLink.setIndexType(typeIndex);
+                        indexLink.setFolderType(typeMovie);
                         try {
                             if (indexLink.getLink().length() < 1) {
                                 indexLinkView.setError("Invalid Link");
@@ -254,6 +240,8 @@ public class AddNewIndexFragment extends BaseFragment {
                                             @Override
                                             public void run() {
                                                 save2.performClick();
+                                                save3.performClick();
+                                                save4.performClick();
                                                 save.setText("Scanning Movies");
                                                 progress_circular.setVisibility(View.VISIBLE);
                                                 scanButton.setText("Scanning");
@@ -275,15 +263,6 @@ public class AddNewIndexFragment extends BaseFragment {
                                         if (folderType.equals("Movies")) {
                                             if (indexType.equals("GDIndex")) {
                                                 postRequestGDIndex(link, user, pass, false, index_id);
-                                            }
-                                            if (indexType.equals("GoIndex")) {
-                                                postRequestGoIndex(link, user, pass, false, index_id);
-                                            }
-                                            if (indexType.equals("Maple")) {
-                                                postRequestMapleIndex(link, user, pass, false, index_id);
-                                            }
-                                            if (indexType.equals("SimpleProgram")) {
-                                                postRequestSimpleProgramIndex(link, user, pass, false, index_id);
                                             }
                                         }
                                         mActivity.runOnUiThread(new Runnable() {
@@ -311,6 +290,61 @@ public class AddNewIndexFragment extends BaseFragment {
                         }
                     }
                 });
+                save3.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        IndexLink indexLink = new IndexLink();
+                        indexLink.setLink(movie);
+                        indexLink.setUsername(userNameView.getText().toString());
+                        indexLink.setPassword(passWordView.getText().toString());
+                        indexLink.setIndexType(typeIndex);
+                        indexLink.setFolderType(typeMovie);
+                        try {
+                            if (indexLink.getLink().length() < 1) {
+                                indexLinkView.setError("Invalid Link");
+                            }
+                            Thread thread = new Thread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    if (DatabaseClient.getInstance(mActivity).getAppDatabase().indexLinksDao().find(indexLink.getLink()) != null) {
+                                        //refresh instead
+                                        mActivity.runOnUiThread(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                // refreshSuggest.setVisibility(View.VISIBLE);
+                                            }
+                                        });
+                                    } else if (indexLink.getLink() != null) {
+                                        DatabaseClient.getInstance(mActivity).getAppDatabase().indexLinksDao().insert(indexLink);
+                                        String folderType = indexLink.getFolderType();
+                                        String indexType = indexLink.getIndexType();
+                                        String link = indexLink.getLink();
+                                        String user = indexLink.getUsername();
+                                        String pass = indexLink.getPassword();
+                                        System.out.println("Before setting id" + indexLink.getId());
+                                        IndexLink indexLinkAgain = DatabaseClient.getInstance(mActivity)
+                                                .getAppDatabase()
+                                                .indexLinksDao()
+                                                .find(link);
+                                        int index_id = indexLinkAgain.getId();
+                                        System.out.println("After setting id" + indexLinkAgain.getId());
+                                        if (folderType.equals("Movies")) {
+                                            if (indexType.equals("GDIndex")) {
+                                                postRequestGDIndex(link, user, pass, false, index_id);
+                                            }
+                                        }
+
+                                    }
+                                }
+                            });
+                            thread.start();
+                        } catch (NullPointerException e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+                });
+
                 save2.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -318,7 +352,7 @@ public class AddNewIndexFragment extends BaseFragment {
                         indexLink.setLink(series);
                         indexLink.setUsername(userNameView.getText().toString());
                         indexLink.setPassword(passWordView.getText().toString());
-                        indexLink.setIndexType(actv1.getText().toString());
+                        indexLink.setIndexType(typeIndex);
                         indexLink.setFolderType(typeSeries);
                         try {
                             if (indexLink.getLink().length() < 1) {
@@ -375,15 +409,6 @@ public class AddNewIndexFragment extends BaseFragment {
                                             if (indexType.equals("GDIndex")) {
                                                 postRequestGDIndex(link, user, pass, true, index_id);
                                             }
-                                            if (indexType.equals("GoIndex")) {
-                                                postRequestGoIndex(link, user, pass, true, index_id);
-                                            }
-                                            if (indexType.equals("MapleIndex")) {
-                                                postRequestMapleIndex(link, user, pass, true, index_id);
-                                            }
-                                            if (indexType.equals("SimpleProgram")) {
-                                                postRequestSimpleProgramIndex(link, user, pass, true, index_id);
-                                            }
                                         }
                                         mActivity.runOnUiThread(new Runnable() {
                                             @Override
@@ -402,6 +427,65 @@ public class AddNewIndexFragment extends BaseFragment {
 
                         if (save.getText().equals("All Movies Scanned")) {
                             mActivity.getSupportFragmentManager().popBackStack();
+                        }
+                    }
+                });
+                save4.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        IndexLink indexLink = new IndexLink();
+                        indexLink.setLink(series1);
+                        indexLink.setUsername(userNameView.getText().toString());
+                        indexLink.setPassword(passWordView.getText().toString());
+                        indexLink.setIndexType(typeIndex);
+                        indexLink.setFolderType(typeSeries);
+                        try {
+                            if (indexLink.getLink().length() < 1) {
+                                indexLinkView.setError("Invalid Link");
+                            }
+                            Thread thread = new Thread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    if (DatabaseClient.getInstance(mActivity).getAppDatabase().indexLinksDao().find(indexLink.getLink()) != null) {
+                                        //refresh instead
+                                        mActivity.runOnUiThread(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                // refreshSuggest.setVisibility(View.VISIBLE);
+                                            }
+                                        });
+                                    } else if (indexLink.getLink() != null) {
+                                        DatabaseClient.getInstance(mActivity).getAppDatabase().indexLinksDao().insert(indexLink);
+                                        String folderType = indexLink.getFolderType();
+                                        String indexType = indexLink.getIndexType();
+
+                                        String link = indexLink.getLink();
+                                        String user = indexLink.getUsername();
+                                        String pass = indexLink.getPassword();
+
+                                        System.out.println("Before setting id" + indexLink.getId());
+
+                                        IndexLink indexLinkAgain = DatabaseClient.getInstance(mActivity)
+                                                .getAppDatabase()
+                                                .indexLinksDao()
+                                                .find(link);
+
+                                        int index_id = indexLinkAgain.getId();
+
+                                        System.out.println("After setting id" + indexLinkAgain.getId());
+
+                                        if (folderType.equals("TVShows")) {
+                                            if (indexType.equals("GDIndex")) {
+                                                postRequestGDIndex(link, user, pass, true, index_id);
+                                            }
+                                        }
+
+                                    }
+                                }
+                            });
+                            thread.start();
+                        } catch (NullPointerException e) {
+                            e.printStackTrace();
                         }
                     }
                 });
