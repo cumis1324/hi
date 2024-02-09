@@ -8,13 +8,17 @@ import static com.theflexproject.thunder.fragments.EpisodeDetailsFragment.REQUES
 import com.google.android.ads.nativetemplates.NativeTemplateStyle;
 import com.google.android.ads.nativetemplates.TemplateView;
 import com.google.android.gms.ads.AdError;
+import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdLoader;
 import com.google.android.gms.ads.FullScreenContentCallback;
 import com.google.android.gms.ads.LoadAdError;
+import com.google.android.gms.ads.MediaAspectRatio;
 import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.OnUserEarnedRewardListener;
 import com.google.android.gms.ads.interstitial.InterstitialAd;
 import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback;
 import com.google.android.gms.ads.nativead.NativeAd;
+import com.google.android.gms.ads.nativead.NativeAdOptions;
 import com.google.android.gms.ads.rewardedinterstitial.RewardedInterstitialAd;
 import com.google.android.gms.ads.rewardedinterstitial.RewardedInterstitialAdLoadCallback;
 import com.google.firebase.dynamiclinks.DynamicLink;
@@ -167,6 +171,7 @@ public class MovieDetailsFragment extends BaseFragment{
     private ImageButton spay;
     private TemplateView template;
     private InterstitialAd mInterstitialAd;
+    private RewardedInterstitialAd rewardedInterstitialAd;
 
 
 
@@ -209,8 +214,9 @@ public class MovieDetailsFragment extends BaseFragment{
         loadNative();
         initWidgets(view);
         loadDetails();
-        loadAds();
+
     }
+
     private void loadAds(){
         AdRequest adRequest = new AdRequest.Builder().build();
 
@@ -550,6 +556,7 @@ public class MovieDetailsFragment extends BaseFragment{
                     Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(largestFile.getUrlString()));
                     intent.setDataAndType(Uri.parse(largestFile.getUrlString()), "video/*");
                     startActivity(intent);
+                    loadAds();
                 }
             });
         }else {
@@ -563,12 +570,14 @@ public class MovieDetailsFragment extends BaseFragment{
                             Intent in = new Intent(getActivity(), PlayerActivity.class);
                             in.putExtra("url", selectedFile.getUrlString());
                             startActivity(in);
+                            loadAds();
                             Toast.makeText(getContext(), "Playing " + movieDetails.getTitle(), Toast.LENGTH_LONG).show();
                         } else {
                             addToLastPlayed();
                             Intent in = new Intent(getActivity(), PlayerActivity.class);
                             in.putExtra("url", movieDetails.getUrlString());
                             startActivity(in);
+                            loadAds();
                             Toast.makeText(getContext(), "Playing " + movieDetails.getTitle(), Toast.LENGTH_LONG).show();
                         }
 
@@ -658,7 +667,9 @@ public class MovieDetailsFragment extends BaseFragment{
         changeSource.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                CustomFileListDialogFragment dialog = new CustomFileListDialogFragment(mActivity,changeSource,(List<MyMedia>)(List<?>) movieFileList);
+                CustomFileListDialogFragment dialog =
+                        new CustomFileListDialogFragment(mActivity,changeSource,
+                                (List<MyMedia>)(List<?>) movieFileList);
 
                mActivity.
                        getSupportFragmentManager()

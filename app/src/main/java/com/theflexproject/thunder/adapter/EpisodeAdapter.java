@@ -1,5 +1,7 @@
 package com.theflexproject.thunder.adapter;
 
+import static android.content.ContentValues.TAG;
+
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
@@ -9,6 +11,7 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,6 +30,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
+import com.google.android.gms.ads.AdError;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.FullScreenContentCallback;
+import com.google.android.gms.ads.LoadAdError;
+import com.google.android.gms.ads.interstitial.InterstitialAd;
+import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback;
 import com.theflexproject.thunder.Constants;
 import com.theflexproject.thunder.R;
 import com.theflexproject.thunder.database.DatabaseClient;
@@ -42,6 +51,7 @@ import eightbitlab.com.blurview.RenderScriptBlur;
 public class EpisodeAdapter extends RecyclerView.Adapter<EpisodeAdapter.EpisodeAdapterHolder> {
 
     Context context;
+    InterstitialAd mInterstitialAd;
     List<Episode> episodeList;
     private EpisodeAdapter.OnItemClickListener listener;
 
@@ -49,6 +59,7 @@ public class EpisodeAdapter extends RecyclerView.Adapter<EpisodeAdapter.EpisodeA
         this.context = context;
         this.episodeList = episodeList;
         this.listener= listener;
+
     }
 
     @NonNull
@@ -158,6 +169,67 @@ public class EpisodeAdapter extends RecyclerView.Adapter<EpisodeAdapter.EpisodeA
         public void onClick(View v) {
             listener.onClick(v,getAbsoluteAdapterPosition());
         }
+        private void loadAds(){
+            AdRequest adRequest = new AdRequest.Builder().build();
+
+            InterstitialAd.load(context, "ca-app-pub-7142401354409440/5207281951", adRequest,
+                    new InterstitialAdLoadCallback() {
+                        @Override
+                        public void onAdLoaded(@NonNull InterstitialAd interstitialAd) {
+                            // The mInterstitialAd reference will be null until an ad is loaded.
+                            mInterstitialAd = interstitialAd;
+                            Log.i(TAG, "onAdLoaded");
+
+                            // Set full-screen content callback
+                            mInterstitialAd.setFullScreenContentCallback(new FullScreenContentCallback() {
+                                @Override
+                                public void onAdClicked() {
+                                    // Called when a click is recorded for an ad.
+                                    Log.d(TAG, "Ad was clicked.");
+                                }
+
+                                @Override
+                                public void onAdDismissedFullScreenContent() {
+                                    // Called when ad is dismissed.
+                                    // Set the ad reference to null so you don't show the ad a second time.
+                                    Log.d(TAG, "Ad dismissed fullscreen content.");
+                                    mInterstitialAd = null;
+                                }
+
+                                @Override
+                                public void onAdFailedToShowFullScreenContent(AdError adError) {
+                                    // Called when ad fails to show.
+                                    Log.e(TAG, "Ad failed to show fullscreen content.");
+                                    mInterstitialAd = null;
+                                }
+
+                                @Override
+                                public void onAdImpression() {
+                                    // Called when an impression is recorded for an ad.
+                                    Log.d(TAG, "Ad recorded an impression.");
+                                }
+
+                                @Override
+                                public void onAdShowedFullScreenContent() {
+                                    // Called when ad is shown.
+                                    Log.d(TAG, "Ad showed fullscreen content.");
+                                }
+                            });
+
+                            // Show the ad
+                            if (mInterstitialAd != null) {
+                                mInterstitialAd.show((Activity) context);
+                            }
+                        }
+
+                        @Override
+                        public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
+                            // Handle the error
+                            Log.d(TAG, loadAdError.toString());
+                            mInterstitialAd = null;
+                        }
+                    });
+        }
 
         private void playEpisode(Episode episode){
             SharedPreferences sharedPreferences = itemView.getContext().getSharedPreferences("Settings" , Context.MODE_PRIVATE);
@@ -176,6 +248,7 @@ public class EpisodeAdapter extends RecyclerView.Adapter<EpisodeAdapter.EpisodeA
                 in.putExtra("url" , episode.getUrlString());
                 itemView.getContext().startActivity(in);
                 Toast.makeText(itemView.getContext() , "Play" , Toast.LENGTH_LONG).show();
+                loadAds();
             }
         }
         private void addToLastPlayed(int id) {

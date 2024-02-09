@@ -54,7 +54,8 @@
                     android:fontFamily="@font/jost_regular"
                     android:orientation="horizontal"
                     android:src="@drawable/ic_play"
-                    app:cornerRadius="100dp" />
+                    app:cornerRadius="100dp"
+                    android:visibility="invisible"/>
 
                 <TextView
                     android:id="@+id/showTitle"

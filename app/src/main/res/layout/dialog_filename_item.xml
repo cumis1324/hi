@@ -19,7 +19,7 @@
         android:textColor="@color/download_button_bg_color"
         android:textSize="14sp"
         android:textStyle="bold"
-        android:visibility="gone"
+        android:visibility="visible"
         />
 
     <TextView
