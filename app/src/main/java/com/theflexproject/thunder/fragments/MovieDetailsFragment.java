@@ -19,6 +19,9 @@ import com.google.android.gms.ads.interstitial.InterstitialAd;
 import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback;
 import com.google.android.gms.ads.nativead.NativeAd;
 import com.google.android.gms.ads.nativead.NativeAdOptions;
+import com.google.android.gms.ads.rewarded.RewardItem;
+import com.google.android.gms.ads.rewarded.RewardedAd;
+import com.google.android.gms.ads.rewarded.RewardedAdLoadCallback;
 import com.google.android.gms.ads.rewardedinterstitial.RewardedInterstitialAd;
 import com.google.android.gms.ads.rewardedinterstitial.RewardedInterstitialAdLoadCallback;
 import com.google.firebase.dynamiclinks.DynamicLink;
@@ -171,7 +174,7 @@ public class MovieDetailsFragment extends BaseFragment{
     private ImageButton spay;
     private TemplateView template;
     private InterstitialAd mInterstitialAd;
-    private RewardedInterstitialAd rewardedInterstitialAd;
+    private RewardedAd rewardedAd;
 
 
 
@@ -217,6 +220,72 @@ public class MovieDetailsFragment extends BaseFragment{
 
     }
 
+    private void loadReward(){
+        AdRequest adRequest = new AdRequest.Builder().build();
+        RewardedAd.load(mActivity, "ca-app-pub-7142401354409440/7652952632",
+                adRequest, new RewardedAdLoadCallback() {
+                    @Override
+                    public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
+                        // Handle the error.
+                        Log.d(TAG, loadAdError.toString());
+                        rewardedAd = null;
+                    }
+
+                    @Override
+                    public void onAdLoaded(@NonNull RewardedAd ad) {
+                        rewardedAd = ad;
+                        Log.d(TAG, "Ad was loaded.");
+                        rewardedAd.setFullScreenContentCallback(new FullScreenContentCallback() {
+                            @Override
+                            public void onAdClicked() {
+                                // Called when a click is recorded for an ad.
+                                Log.d(TAG, "Ad was clicked.");
+                            }
+
+                            @Override
+                            public void onAdDismissedFullScreenContent() {
+                                // Called when ad is dismissed.
+                                // Set the ad reference to null so you don't show the ad a second time.
+                                Log.d(TAG, "Ad dismissed fullscreen content.");
+                                rewardedAd = null;
+                            }
+
+                            @Override
+                            public void onAdFailedToShowFullScreenContent(AdError adError) {
+                                // Called when ad fails to show.
+                                Log.e(TAG, "Ad failed to show fullscreen content.");
+                                rewardedAd = null;
+                            }
+
+                            @Override
+                            public void onAdImpression() {
+                                // Called when an impression is recorded for an ad.
+                                Log.d(TAG, "Ad recorded an impression.");
+                            }
+
+                            @Override
+                            public void onAdShowedFullScreenContent() {
+                                // Called when ad is shown.
+                                Log.d(TAG, "Ad showed fullscreen content.");
+                            }
+                        });
+                        if (rewardedAd != null) {
+                            rewardedAd.show(mActivity, new OnUserEarnedRewardListener() {
+                                @Override
+                                public void onUserEarnedReward(@NonNull RewardItem rewardItem) {
+                                    // Handle the reward.
+                                    Log.d(TAG, "The user earned the reward.");
+                                    int rewardAmount = rewardItem.getAmount();
+                                    String rewardType = rewardItem.getType();
+                                    Toast.makeText(getContext(), rewardType + movieDetails.getTitle(), Toast.LENGTH_LONG).show();
+                                }
+                            });
+                        }
+                    }
+
+                });
+
+    }
     private void loadAds(){
         AdRequest adRequest = new AdRequest.Builder().build();
 
@@ -556,7 +625,7 @@ public class MovieDetailsFragment extends BaseFragment{
                     Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(largestFile.getUrlString()));
                     intent.setDataAndType(Uri.parse(largestFile.getUrlString()), "video/*");
                     startActivity(intent);
-                    loadAds();
+                    loadReward();
                 }
             });
         }else {
@@ -570,14 +639,12 @@ public class MovieDetailsFragment extends BaseFragment{
                             Intent in = new Intent(getActivity(), PlayerActivity.class);
                             in.putExtra("url", selectedFile.getUrlString());
                             startActivity(in);
-                            loadAds();
                             Toast.makeText(getContext(), "Playing " + movieDetails.getTitle(), Toast.LENGTH_LONG).show();
                         } else {
                             addToLastPlayed();
                             Intent in = new Intent(getActivity(), PlayerActivity.class);
                             in.putExtra("url", movieDetails.getUrlString());
                             startActivity(in);
-                            loadAds();
                             Toast.makeText(getContext(), "Playing " + movieDetails.getTitle(), Toast.LENGTH_LONG).show();
                         }
 

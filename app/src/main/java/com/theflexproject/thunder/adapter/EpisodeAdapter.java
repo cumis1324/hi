@@ -248,7 +248,6 @@ public class EpisodeAdapter extends RecyclerView.Adapter<EpisodeAdapter.EpisodeA
                 in.putExtra("url" , episode.getUrlString());
                 itemView.getContext().startActivity(in);
                 Toast.makeText(itemView.getContext() , "Play" , Toast.LENGTH_LONG).show();
-                loadAds();
             }
         }
         private void addToLastPlayed(int id) {
