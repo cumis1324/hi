@@ -127,9 +127,9 @@ public class PlayerActivity extends AppCompatActivity implements View.OnClickLis
             trackSelectionParameters = new TrackSelectionParameters.Builder(/* context= */ this).build();
             clearStartPosition();
         }
-        loadReward();
 
     }
+
 
     private void loadReward(){
         AdRequest adRequest = new AdRequest.Builder().build();
@@ -159,6 +159,9 @@ public class PlayerActivity extends AppCompatActivity implements View.OnClickLis
                                 // Set the ad reference to null so you don't show the ad a second time.
                                 Log.d(TAG, "Ad dismissed fullscreen content.");
                                 rewardedAd = null;
+                                if (player != null) {
+                                    player.setPlayWhenReady(true);
+                                }
                             }
 
                             @Override
@@ -178,6 +181,9 @@ public class PlayerActivity extends AppCompatActivity implements View.OnClickLis
                             public void onAdShowedFullScreenContent() {
                                 // Called when ad is shown.
                                 Log.d(TAG, "Ad showed fullscreen content.");
+                                if (player != null) {
+                                    player.setPlayWhenReady(false);
+                                }
                             }
                         });
                         if (rewardedAd != null) {
@@ -191,9 +197,7 @@ public class PlayerActivity extends AppCompatActivity implements View.OnClickLis
                                     Log.d(TAG, "The user earned the reward.");
                                     int rewardAmount = rewardItem.getAmount();
                                     String rewardType = rewardItem.getType();
-                                    if (playerView != null){
-                                        playerView.onResume();
-                                    }
+                                    
                                 }
                             });
                         }
@@ -203,6 +207,16 @@ public class PlayerActivity extends AppCompatActivity implements View.OnClickLis
 
     }
 
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+
+        // Check if device orientation is landscape
+        if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            // Show rewarded ad if loaded
+            loadReward();
+        }
+    }
     @Override
     public void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
