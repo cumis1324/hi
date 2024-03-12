@@ -9,7 +9,7 @@
     app:cardUseCompatPadding="false"
     android:clickable="true"
     android:focusable="true"
-    android:background="@drawable/bd"
+    android:background="@color/exo_black_opacity_70"
     tools:context=".SignInActivity">
 <RelativeLayout
     android:layout_width="match_parent"

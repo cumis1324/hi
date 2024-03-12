@@ -634,19 +634,44 @@ public class MovieDetailsFragment extends BaseFragment{
                 @Override
                 public void onClick(View v) {
                     try {
-                        if (selectedFile != null) {
+                        CustomFileListDialogFragment dialog =
+                                new CustomFileListDialogFragment(mActivity,changeSource,
+                                        (List<MyMedia>)(List<?>) movieFileList);
+
+                        mActivity.
+                                getSupportFragmentManager()
+                                .beginTransaction()
+                                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                                .add(android.R.id.content, dialog)
+                                .addToBackStack(null)
+                                .commit();
+                        dialog.mOnInputListener = new CustomFileListDialogFragment.OnInputListener() {
+                            @Override
+                            public void sendInput(int selection) {
+                                selectedFile = movieFileList.get(selection);
+                                String huntu = MovieQualityExtractor.extractQualtiy(selectedFile.getFileName());
+                                System.out.println("selected file"+selectedFile.getFileName());
+                                Intent in = new Intent(getActivity(), PlayerActivity.class);
+                                in.putExtra("url", selectedFile.getUrlString());
+                                startActivity(in);
+                                Toast.makeText(getContext(), "Playing " + movieDetails.getTitle() + " " + huntu, Toast.LENGTH_LONG).show();
+                                Toast.makeText(mActivity , selectedFile.getTitle() + huntu + " Selected" , Toast.LENGTH_LONG).show();
+
+                            }
+                        };
+                        //if (selectedFile != null) {
+                          //  addToLastPlayed();
+                           // Intent in = new Intent(getActivity(), PlayerActivity.class);
+                           // in.putExtra("url", selectedFile.getUrlString());
+                           // startActivity(in);
+                           // Toast.makeText(getContext(), "Playing " + movieDetails.getTitle(), Toast.LENGTH_LONG).show();
+                       // } else {
                             addToLastPlayed();
-                            Intent in = new Intent(getActivity(), PlayerActivity.class);
-                            in.putExtra("url", selectedFile.getUrlString());
-                            startActivity(in);
-                            Toast.makeText(getContext(), "Playing " + movieDetails.getTitle(), Toast.LENGTH_LONG).show();
-                        } else {
-                            addToLastPlayed();
-                            Intent in = new Intent(getActivity(), PlayerActivity.class);
-                            in.putExtra("url", movieDetails.getUrlString());
-                            startActivity(in);
-                            Toast.makeText(getContext(), "Playing " + movieDetails.getTitle(), Toast.LENGTH_LONG).show();
-                        }
+                         //   Intent in = new Intent(getActivity(), PlayerActivity.class);
+                           // in.putExtra("url", movieDetails.getUrlString());
+                           // startActivity(in);
+                           // Toast.makeText(getContext(), "Playing " + movieDetails.getTitle(), Toast.LENGTH_LONG).show();
+                       // }
 
                     }catch (Exception e){
                         e.printStackTrace();
